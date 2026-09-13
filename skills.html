@@ -1,523 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santanu Pal - Skills</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="custom.css" rel="stylesheet">
-    <style>
-        
-        .skill-card {
-            background-color: var(--card-bg);
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Technical Skills | Dr. Santanu Pal</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #0f2027; --secondary: #203a43; --accent: #2c5364;
+      --highlight: #0077b5; --light-bg: #f8f9fa; --text-dark: #2b2b2b; --text-muted: #6c757d;
+      --card-bg: #ffffff;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); padding-top: 76px; background-color: var(--light-bg); }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; color: var(--primary); }
 
-        .dark-mode .skill-card {
-            box-shadow: none;
-            border: 1px solid var(--border-color);
-        }
+    /* Navbar */
+    .navbar { padding: 15px 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--primary) !important; }
+    .nav-link { font-weight: 500; color: var(--secondary) !important; margin: 0 6px; transition: 0.3s; font-size: 0.95rem; position: relative; }
+    .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 50%; background-color: var(--highlight); transition: all 0.3s ease; transform: translateX(-50%); border-radius: 2px; }
+    .nav-link:hover::after, .nav-link.active::after { width: 85%; }
+    .nav-link:hover, .nav-link.active { color: var(--highlight) !important; font-weight: 700; }
 
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+    /* Page Header */
+    .page-header { padding: 80px 0 60px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); color: white; text-align: center; }
+    .page-header h1 { color: white; font-weight: 700; }
 
-        .skill-icon {
-            font-size: 3rem;
-            color: var(--link-color);
-            margin-bottom: 1rem;
-        }
+    /* Tabs */
+    .tab-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; border-bottom: 2px solid #e2e8f0; }
+    .tab { cursor: pointer; padding: 12px 24px; font-weight: 600; color: var(--secondary); border-bottom: 3px solid transparent; transition: 0.3s; margin-bottom: -2px; }
+    .tab.active { border-color: var(--highlight); color: var(--highlight); }
+    .tab:hover { color: var(--highlight); }
 
-        .skill-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-description {
-            font-size: 0.875rem;
-            color: var(--secondary-text);
-        }
-
-        .skills-grid {
-            display: none;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .skills-grid.active {
-            display: grid;
-        }
-
-        .tab {
-            cursor: pointer;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-bottom: 3px solid transparent;
-            transition: border-color 0.2s, color 0.2s;
-        }
-        
-        .tab.active {
-            border-color: var(--link-color);
-            color: var(--link-color);
-        }
-
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            background-color: var(--footer-bg);
-            border-radius: 6px;
-            margin-top: 40px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .soft-skills-section {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .skill-badge {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 1rem 2rem;
-            border-radius: 9999px; /* rounded-full */
-            font-weight: 600;
-            color: var(--text-color);
-            transition: background-color 0.3s;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-        
-        .dark-mode .skill-badge {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            nav ul {
-                margin-top: 1rem;
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-100">
-    <div class="container">
-        <nav class="flex items-center justify-between py-6 px-4 bg-white rounded-lg shadow-md mb-8">
-            <div class="flex items-center space-x-4">
-                <a href="index.html">
-                    <img src="santanuPal.jpeg" alt="Santanu Pal" class="nav-profile-image">
-                </a>
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </button>
-            </div>
-            <ul class="flex space-x-6">
-                <li><a href="index.html#about" class="text-gray-600 hover:text-blue-700 font-medium">About</a></li>
-                <li><a href="publication.html" class="text-gray-600 hover:text-blue-700 font-medium">Publications</a></li>
-                <li><a href="skills.html" class="text-blue-700 font-medium border-b-2 border-blue-700">Skills</a></li>
-                <li><a href="project.html" class="text-gray-600 hover:text-blue-700 font-medium">Projects</a></li>
-                <li><a href="index.html#cv" class="text-gray-600 hover:text-blue-700 font-medium">CV</a></li>
-                <li><a href="index.html#news" class="text-gray-600 hover:text-blue-700 font-medium">News</a></li>
-                <li><a href="index.html#contact" class="text-gray-600 hover:text-blue-700 font-medium">Contact</a></li>
-            </ul>
-        </nav>
-
-        <section id="skills" class="mb-8">
-            <h2 class="text-3xl font-bold text-center mb-10">Technical Expertise</h2>
-
-            <div class="tab-container">
-                <div class="tab active" data-tab="all">All Skills</div>
-                <div class="tab" data-tab="agentic">Agentic AI</div>
-                <div class="tab" data-tab="programming">Programming</div>
-                <div class="tab" data-tab="deeplearning">Deep Learning</div>
-                <div class="tab" data-tab="libraries">Libraries & Tools</div>
-                <div class="tab" data-tab="nlp">NLP & Generative AI</div>
-            </div>
-
-            <div id="all" class="skills-grid active">
-                <div class="skill-card skill-agentic">
-                    <i class="fa-solid fa-microchip skill-icon"></i>
-                    <h4 class="skill-title">Open AI SDK</h4>
-                    <p class="skill-description">Developed AI agents for various NLP tasks.</p>
-                </div>
-                <div class="skill-card skill-agentic">
-                    <i class="fa-solid fa-users-gear skill-icon"></i>
-                    <h4 class="skill-title">Crew AI</h4>
-                    <p class="skill-description">Built multi-agent systems for complex workflows.</p>
-                </div>
-                <div class="skill-card skill-agentic">
-                    <i class="fa-solid fa-diagram-project skill-icon"></i>
-                    <h4 class="skill-title">Langgraph</h4>
-                    <p class="skill-description">Designed stateful multi-actor applications with LLMs.</p>
-                </div>
-                <div class="skill-card skill-agentic">
-                    <i class="fa-solid fa-robot skill-icon"></i>
-                    <h4 class="skill-title">Autogen</h4>
-                    <p class="skill-description">Implemented conversational agents for task automation.</p>
-                </div>
-                <div class="skill-card skill-agentic">
-                    <i class="fa-solid fa-puzzle-piece skill-icon"></i>
-                    <h4 class="skill-title">MCP</h4>
-                    <p class="skill-description">Contributed to modular AI agent development.</p>
-                </div>
-
-                <div class="skill-card skill-programming">
-                    <i class="fab fa-python skill-icon"></i>
-                    <h4 class="skill-title">Python</h4>
-                    <p class="skill-description">Primary language for ML, NLP, and AI development.</p>
-                </div>
-                <div class="skill-card skill-programming">
-                    <i class="fab fa-java skill-icon"></i>
-                    <h4 class="skill-title">Java</h4>
-                    <p class="skill-description">Used for backend development and data processing.</p>
-                </div>
-                <div class="skill-card skill-programming">
-                    <i class="fa-solid fa-database skill-icon"></i>
-                    <h4 class="skill-title">SQL</h4>
-                    <p class="skill-description">Managed and queried relational databases for projects.</p>
-                </div>
-                
-                <div class="skill-card skill-deeplearning">
-                    <i class="fa-solid fa-brain skill-icon"></i>
-                    <h4 class="skill-title">PyTorch</h4>
-                    <p class="skill-description">Built and trained deep learning models.</p>
-                </div>
-                <div class="skill-card skill-deeplearning">
-                    <i class="fa-solid fa-project-diagram skill-icon"></i>
-                    <h4 class="skill-title">TensorFlow</h4>
-                    <p class="skill-description">Developed and deployed machine learning models.</p>
-                </div>
-                <div class="skill-card skill-deeplearning">
-                    <i class="fa-solid fa-flask skill-icon"></i>
-                    <h4 class="skill-title">Flask</h4>
-                    <p class="skill-description">Developed web applications and APIs.</p>
-                </div>
-
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-calculator skill-icon"></i>
-                    <h4 class="skill-title">NumPy</h4>
-                    <p class="skill-description">Fundamental for numerical computing in data science.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-table skill-icon"></i>
-                    <h4 class="skill-title">Pandas</h4>
-                    <p class="skill-description">Used for data manipulation and analysis.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-chart-line skill-icon"></i>
-                    <h4 class="skill-title">Scikit-learn</h4>
-                    <p class="skill-description">Implemented various machine learning algorithms.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-book-open skill-icon"></i>
-                    <h4 class="skill-title">NLTK</h4>
-                    <p class="skill-description">Used for various NLP tasks like tokenization and parsing.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-feather-alt skill-icon"></i>
-                    <h4 class="skill-title">Hugging Face Transformers</h4>
-                    <p class="skill-description">Leveraged pre-trained models for various NLP applications.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-comment skill-icon"></i>
-                    <h4 class="skill-title">SpaCy</h4>
-                    <p class="skill-description">Efficiently processed and analyzed text data.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-link skill-icon"></i>
-                    <h4 class="skill-title">LangChain</h4>
-                    <p class="skill-description">Developed applications powered by LLMs.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fa-solid fa-book skill-icon"></i>
-                    <h4 class="skill-title">Gensim</h4>
-                    <p class="skill-description">Used for topic modeling and document similarity.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fab fa-git-alt skill-icon"></i>
-                    <h4 class="skill-title">Git</h4>
-                    <p class="skill-description">Version control for collaborative development.</p>
-                </div>
-                <div class="skill-card skill-libraries">
-                    <i class="fab fa-docker skill-icon"></i>
-                    <h4 class="skill-title">Docker</h4>
-                    <p class="skill-description">Containerized applications for consistent deployment.</p>
-                </div>
-
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-exchange-alt skill-icon"></i>
-                    <h4 class="skill-title">Sequence-to-Sequence Models</h4>
-                    <p class="skill-description">Used in machine translation and text summarization.</p>
-                </div>
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-search-plus skill-icon"></i>
-                    <h4 class="skill-title">Attention Mechanisms</h4>
-                    <p class="skill-description">Enhanced performance of neural networks in NLP.</p>
-                </div>
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-keyboard skill-icon"></i>
-                    <h4 class="skill-title">Language Modeling</h4>
-                    <p class="skill-description">Developed models for text generation and prediction.</p>
-                </div>
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-sync skill-icon"></i>
-                    <h4 class="skill-title">Transformers (BERT, GPT-3 etc.)</h4>
-                    <p class="skill-description">Core to many state-of-the-art NLP applications.</p>
-                </div>
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-highlighter skill-icon"></i>
-                    <h4 class="skill-title">Named Entity Recognition (NER)</h4>
-                    <p class="skill-description">Extracted key information from unstructured text.</p>
-                </div>
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-comment-dots skill-icon"></i>
-                    <h4 class="skill-title">Large Language Model (LLM)</h4>
-                    <p class="skill-description">Developed generative AI applications and models.</p>
-                </div>
-                <div class="skill-card skill-nlp">
-                    <i class="fa-solid fa-arrow-up-right-dots skill-icon"></i>
-                    <h4 class="skill-title">Reinforcement Learning (PPO, DPO, CPO)</h4>
-                    <p class="skill-description">Fine-tuned LLMs for specific behaviors and preferences.</p>
-                </div>
-            </div>
-
-            <div id="agentic" class="skills-grid">
-                <div class="skill-card">
-                    <i class="fa-solid fa-microchip skill-icon"></i>
-                    <h4 class="skill-title">Open AI SDK</h4>
-                    <p class="skill-description">Developed AI agents for various NLP tasks.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-users-gear skill-icon"></i>
-                    <h4 class="skill-title">Crew AI</h4>
-                    <p class="skill-description">Built multi-agent systems for complex workflows.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-diagram-project skill-icon"></i>
-                    <h4 class="skill-title">Langgraph</h4>
-                    <p class="skill-description">Designed stateful multi-actor applications with LLMs.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-robot skill-icon"></i>
-                    <h4 class="skill-title">Autogen</h4>
-                    <p class="skill-description">Implemented conversational agents for task automation.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-puzzle-piece skill-icon"></i>
-                    <h4 class="skill-title">MCP</h4>
-                    <p class="skill-description">Contributed to modular AI agent development.</p>
-                </div>
-            </div>
-
-            <div id="programming" class="skills-grid">
-                <div class="skill-card">
-                    <i class="fab fa-python skill-icon"></i>
-                    <h4 class="skill-title">Python</h4>
-                    <p class="skill-description">Primary language for ML, NLP, and AI development.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-java skill-icon"></i>
-                    <h4 class="skill-title">Java</h4>
-                    <p class="skill-description">Used for backend development and data processing.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-database skill-icon"></i>
-                    <h4 class="skill-title">SQL</h4>
-                    <p class="skill-description">Managed and queried relational databases for projects.</p>
-                </div>
-            </div>
-
-            <div id="deeplearning" class="skills-grid">
-                <div class="skill-card">
-                    <i class="fa-solid fa-brain skill-icon"></i>
-                    <h4 class="skill-title">PyTorch</h4>
-                    <p class="skill-description">Built and trained deep learning models.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-project-diagram skill-icon"></i>
-                    <h4 class="skill-title">TensorFlow</h4>
-                    <p class="skill-description">Developed and deployed machine learning models.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-flask skill-icon"></i>
-                    <h4 class="skill-title">Flask</h4>
-                    <p class="skill-description">Developed web applications and APIs.</p>
-                </div>
-            </div>
-
-            <div id="libraries" class="skills-grid">
-                <div class="skill-card">
-                    <i class="fa-solid fa-calculator skill-icon"></i>
-                    <h4 class="skill-title">NumPy</h4>
-                    <p class="skill-description">Fundamental for numerical computing in data science.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-table skill-icon"></i>
-                    <h4 class="skill-title">Pandas</h4>
-                    <p class="skill-description">Used for data manipulation and analysis.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-chart-line skill-icon"></i>
-                    <h4 class="skill-title">Scikit-learn</h4>
-                    <p class="skill-description">Implemented various machine learning algorithms.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-book-open skill-icon"></i>
-                    <h4 class="skill-title">NLTK</h4>
-                    <p class="skill-description">Used for various NLP tasks like tokenization and parsing.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-feather-alt skill-icon"></i>
-                    <h4 class="skill-title">Hugging Face Transformers</h4>
-                    <p class="skill-description">Leveraged pre-trained models for various NLP applications.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-comment skill-icon"></i>
-                    <h4 class="skill-title">SpaCy</h4>
-                    <p class="skill-description">Efficiently processed and analyzed text data.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-link skill-icon"></i>
-                    <h4 class="skill-title">LangChain</h4>
-                    <p class="skill-description">Developed applications powered by LLMs.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-book skill-icon"></i>
-                    <h4 class="skill-title">Gensim</h4>
-                    <p class="skill-description">Used for topic modeling and document similarity.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-git-alt skill-icon"></i>
-                    <h4 class="skill-title">Git</h4>
-                    <p class="skill-description">Version control for collaborative development.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-docker skill-icon"></i>
-                    <h4 class="skill-title">Docker</h4>
-                    <p class="skill-description">Containerized applications for consistent deployment.</p>
-                </div>
-            </div>
-
-            <div id="nlp" class="skills-grid">
-                <div class="skill-card">
-                    <i class="fa-solid fa-exchange-alt skill-icon"></i>
-                    <h4 class="skill-title">Sequence-to-Sequence Models</h4>
-                    <p class="skill-description">Used in machine translation and text summarization.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-search-plus skill-icon"></i>
-                    <h4 class="skill-title">Attention Mechanisms</h4>
-                    <p class="skill-description">Enhanced performance of neural networks in NLP.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-keyboard skill-icon"></i>
-                    <h4 class="skill-title">Language Modeling</h4>
-                    <p class="skill-description">Developed models for text generation and prediction.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-sync skill-icon"></i>
-                    <h4 class="skill-title">Transformers (BERT, GPT-3 etc.)</h4>
-                    <p class="skill-description">Core to many state-of-the-art NLP applications.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-highlighter skill-icon"></i>
-                    <h4 class="skill-title">Named Entity Recognition (NER)</h4>
-                    <p class="skill-description">Extracted key information from unstructured text.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-comment-dots skill-icon"></i>
-                    <h4 class="skill-title">Large Language Model (LLM)</h4>
-                    <p class="skill-description">Developed generative AI applications and models.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-solid fa-arrow-up-right-dots skill-icon"></i>
-                    <h4 class="skill-title">Reinforcement Learning (PPO, DPO, CPO)</h4>
-                    <p class="skill-description">Fine-tuned LLMs for specific behaviors and preferences.</p>
-                </div>
-            </div>
-
-            <div class="mt-16 text-center">
-                <h3 class="text-2xl font-bold mb-4">Skill Badges</h3>
-                <div class="soft-skills-section">
-                    <div class="skill-badge">Problem Solving</div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            &copy; 2024 Santanu Pal. All rights reserved.
-        </footer>
-    </div>
+    /* Skill Cards & Grid */
+    .skills-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+    .skills-grid.active { display: grid; }
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Theme Toggling
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const storedTheme = localStorage.getItem('theme');
+    .skill-card { background-color: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px 20px; text-align: center; transition: 0.3s; border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; }
+    .skill-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--highlight); }
+    .skill-icon { font-size: 3rem; color: var(--highlight); margin-bottom: 15px; }
+    .skill-title { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .skill-description { font-size: 0.85rem; color: var(--text-muted); }
 
-            if (storedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
+    /* Soft Skills Badges */
+    .soft-skills-section { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+    .skill-badge { background-color: var(--card-bg); border: 1px solid #ddd; padding: 12px 25px; border-radius: 50px; font-weight: 600; color: var(--primary); transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .skill-badge:hover { background-color: var(--highlight); color: white; border-color: var(--highlight); transform: translateY(-3px); }
 
-            themeToggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                }
-            });
+    footer { background: #081115; color: #fff; padding: 25px 0; text-align: center; font-size: 0.9rem; margin-top: 60px; }
+  </style>
+</head>
+<body>
 
-            // Tab functionality
-            const tabs = document.querySelectorAll('.tab');
-            const skillGrids = document.querySelectorAll('.skills-grid');
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html#home">Dr. Santanu Pal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html#about">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="publication.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link active" href="skills.html">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#news">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.dataset.tab;
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container" data-aos="fade-up">
+      <h1>Technical Expertise</h1>
+      <p class="lead text-light">A comprehensive inventory of frameworks, languages, and methodologies.</p>
+    </div>
+  </div>
 
-                    // Remove active class from all tabs and content
-                    tabs.forEach(t => t.classList.remove('active'));
-                    skillGrids.forEach(grid => grid.classList.remove('active'));
+  <section class="container my-5" data-aos="fade-up">
+    <!-- Tabs -->
+    <div class="tab-container">
+      <div class="tab active" data-tab="all">All Skills</div>
+      <div class="tab" data-tab="agentic">Agentic AI</div>
+      <div class="tab" data-tab="programming">Programming</div>
+      <div class="tab" data-tab="deeplearning">Deep Learning</div>
+      <div class="tab" data-tab="libraries">Libraries & Tools</div>
+      <div class="tab" data-tab="nlp">NLP & Generative AI</div>
+    </div>
 
-                    // Add active class to the clicked tab and its corresponding content
-                    tab.classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                });
+    <!-- All Grid -->
+    <div id="all" class="skills-grid active">
+        <!-- Agentic -->
+        <div class="skill-card skill-agentic">
+            <i class="fa-solid fa-microchip skill-icon"></i>
+            <h4 class="skill-title">Open AI SDK</h4>
+            <p class="skill-description">Developed AI agents for various NLP tasks.</p>
+        </div>
+        <div class="skill-card skill-agentic">
+            <i class="fa-solid fa-users-gear skill-icon"></i>
+            <h4 class="skill-title">Crew AI</h4>
+            <p class="skill-description">Built multi-agent systems for complex workflows.</p>
+        </div>
+        <div class="skill-card skill-agentic">
+            <i class="fa-solid fa-diagram-project skill-icon"></i>
+            <h4 class="skill-title">Langgraph</h4>
+            <p class="skill-description">Designed stateful multi-actor applications with LLMs.</p>
+        </div>
+        <div class="skill-card skill-agentic">
+            <i class="fa-solid fa-robot skill-icon"></i>
+            <h4 class="skill-title">Autogen</h4>
+            <p class="skill-description">Implemented conversational agents for task automation.</p>
+        </div>
+        <div class="skill-card skill-agentic">
+            <i class="fa-solid fa-puzzle-piece skill-icon"></i>
+            <h4 class="skill-title">MCP</h4>
+            <p class="skill-description">Contributed to modular AI agent development.</p>
+        </div>
+
+        <!-- Programming -->
+        <div class="skill-card skill-programming">
+            <i class="fab fa-python skill-icon"></i>
+            <h4 class="skill-title">Python</h4>
+            <p class="skill-description">Primary language for ML, NLP, and AI development.</p>
+        </div>
+        <div class="skill-card skill-programming">
+            <i class="fab fa-java skill-icon"></i>
+            <h4 class="skill-title">Java</h4>
+            <p class="skill-description">Used for backend development and data processing.</p>
+        </div>
+        <div class="skill-card skill-programming">
+            <i class="fa-solid fa-database skill-icon"></i>
+            <h4 class="skill-title">SQL</h4>
+            <p class="skill-description">Managed and queried relational databases for projects.</p>
+        </div>
+        
+        <!-- Deep Learning -->
+        <div class="skill-card skill-deeplearning">
+            <i class="fa-solid fa-brain skill-icon"></i>
+            <h4 class="skill-title">PyTorch</h4>
+            <p class="skill-description">Built and trained deep learning models.</p>
+        </div>
+        <div class="skill-card skill-deeplearning">
+            <i class="fa-solid fa-project-diagram skill-icon"></i>
+            <h4 class="skill-title">TensorFlow</h4>
+            <p class="skill-description">Developed and deployed machine learning models.</p>
+        </div>
+        <div class="skill-card skill-deeplearning">
+            <i class="fa-solid fa-flask skill-icon"></i>
+            <h4 class="skill-title">Flask</h4>
+            <p class="skill-description">Developed web applications and APIs.</p>
+        </div>
+
+        <!-- Libraries -->
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-calculator skill-icon"></i>
+            <h4 class="skill-title">NumPy</h4>
+            <p class="skill-description">Fundamental for numerical computing in data science.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-table skill-icon"></i>
+            <h4 class="skill-title">Pandas</h4>
+            <p class="skill-description">Used for data manipulation and analysis.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-chart-line skill-icon"></i>
+            <h4 class="skill-title">Scikit-learn</h4>
+            <p class="skill-description">Implemented various machine learning algorithms.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-book-open skill-icon"></i>
+            <h4 class="skill-title">NLTK</h4>
+            <p class="skill-description">Used for various NLP tasks like tokenization and parsing.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-feather-alt skill-icon"></i>
+            <h4 class="skill-title">Hugging Face</h4>
+            <p class="skill-description">Leveraged pre-trained models for various NLP applications.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-comment skill-icon"></i>
+            <h4 class="skill-title">SpaCy</h4>
+            <p class="skill-description">Efficiently processed and analyzed text data.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-link skill-icon"></i>
+            <h4 class="skill-title">LangChain</h4>
+            <p class="skill-description">Developed applications powered by LLMs.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fa-solid fa-book skill-icon"></i>
+            <h4 class="skill-title">Gensim</h4>
+            <p class="skill-description">Used for topic modeling and document similarity.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fab fa-git-alt skill-icon"></i>
+            <h4 class="skill-title">Git</h4>
+            <p class="skill-description">Version control for collaborative development.</p>
+        </div>
+        <div class="skill-card skill-libraries">
+            <i class="fab fa-docker skill-icon"></i>
+            <h4 class="skill-title">Docker</h4>
+            <p class="skill-description">Containerized applications for consistent deployment.</p>
+        </div>
+
+        <!-- NLP -->
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-exchange-alt skill-icon"></i>
+            <h4 class="skill-title">Seq-to-Seq Models</h4>
+            <p class="skill-description">Used in machine translation and text summarization.</p>
+        </div>
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-search-plus skill-icon"></i>
+            <h4 class="skill-title">Attention Mechanisms</h4>
+            <p class="skill-description">Enhanced performance of neural networks in NLP.</p>
+        </div>
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-keyboard skill-icon"></i>
+            <h4 class="skill-title">Language Modeling</h4>
+            <p class="skill-description">Developed models for text generation and prediction.</p>
+        </div>
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-sync skill-icon"></i>
+            <h4 class="skill-title">Transformers</h4>
+            <p class="skill-description">Core to many state-of-the-art NLP applications.</p>
+        </div>
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-highlighter skill-icon"></i>
+            <h4 class="skill-title">NER</h4>
+            <p class="skill-description">Extracted key information from unstructured text.</p>
+        </div>
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-comment-dots skill-icon"></i>
+            <h4 class="skill-title">Large Language Models</h4>
+            <p class="skill-description">Developed generative AI applications and models.</p>
+        </div>
+        <div class="skill-card skill-nlp">
+            <i class="fa-solid fa-arrow-up-right-dots skill-icon"></i>
+            <h4 class="skill-title">RLHF & DPO</h4>
+            <p class="skill-description">Fine-tuned LLMs for specific behaviors and preferences.</p>
+        </div>
+    </div>
+
+    <!-- Tab Specific Grids (Hidden by Default via CSS) -->
+    <div id="agentic" class="skills-grid">
+        <div class="skill-card">
+            <i class="fa-solid fa-microchip skill-icon"></i>
+            <h4 class="skill-title">Open AI SDK</h4>
+            <p class="skill-description">Developed AI agents for various NLP tasks.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-users-gear skill-icon"></i>
+            <h4 class="skill-title">Crew AI</h4>
+            <p class="skill-description">Built multi-agent systems for complex workflows.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-diagram-project skill-icon"></i>
+            <h4 class="skill-title">Langgraph</h4>
+            <p class="skill-description">Designed stateful multi-actor applications with LLMs.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-robot skill-icon"></i>
+            <h4 class="skill-title">Autogen</h4>
+            <p class="skill-description">Implemented conversational agents for task automation.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-puzzle-piece skill-icon"></i>
+            <h4 class="skill-title">MCP</h4>
+            <p class="skill-description">Contributed to modular AI agent development.</p>
+        </div>
+    </div>
+
+    <div id="programming" class="skills-grid">
+        <div class="skill-card">
+            <i class="fab fa-python skill-icon"></i>
+            <h4 class="skill-title">Python</h4>
+            <p class="skill-description">Primary language for ML, NLP, and AI development.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fab fa-java skill-icon"></i>
+            <h4 class="skill-title">Java</h4>
+            <p class="skill-description">Used for backend development and data processing.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-database skill-icon"></i>
+            <h4 class="skill-title">SQL</h4>
+            <p class="skill-description">Managed and queried relational databases for projects.</p>
+        </div>
+    </div>
+
+    <div id="deeplearning" class="skills-grid">
+        <div class="skill-card">
+            <i class="fa-solid fa-brain skill-icon"></i>
+            <h4 class="skill-title">PyTorch</h4>
+            <p class="skill-description">Built and trained deep learning models.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-project-diagram skill-icon"></i>
+            <h4 class="skill-title">TensorFlow</h4>
+            <p class="skill-description">Developed and deployed machine learning models.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-flask skill-icon"></i>
+            <h4 class="skill-title">Flask</h4>
+            <p class="skill-description">Developed web applications and APIs.</p>
+        </div>
+    </div>
+
+    <div id="libraries" class="skills-grid">
+        <div class="skill-card">
+            <i class="fa-solid fa-calculator skill-icon"></i>
+            <h4 class="skill-title">NumPy</h4>
+            <p class="skill-description">Fundamental for numerical computing in data science.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-table skill-icon"></i>
+            <h4 class="skill-title">Pandas</h4>
+            <p class="skill-description">Used for data manipulation and analysis.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-chart-line skill-icon"></i>
+            <h4 class="skill-title">Scikit-learn</h4>
+            <p class="skill-description">Implemented various machine learning algorithms.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-book-open skill-icon"></i>
+            <h4 class="skill-title">NLTK</h4>
+            <p class="skill-description">Used for various NLP tasks like tokenization and parsing.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-feather-alt skill-icon"></i>
+            <h4 class="skill-title">Hugging Face</h4>
+            <p class="skill-description">Leveraged pre-trained models for various NLP applications.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-comment skill-icon"></i>
+            <h4 class="skill-title">SpaCy</h4>
+            <p class="skill-description">Efficiently processed and analyzed text data.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-link skill-icon"></i>
+            <h4 class="skill-title">LangChain</h4>
+            <p class="skill-description">Developed applications powered by LLMs.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-book skill-icon"></i>
+            <h4 class="skill-title">Gensim</h4>
+            <p class="skill-description">Used for topic modeling and document similarity.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fab fa-git-alt skill-icon"></i>
+            <h4 class="skill-title">Git</h4>
+            <p class="skill-description">Version control for collaborative development.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fab fa-docker skill-icon"></i>
+            <h4 class="skill-title">Docker</h4>
+            <p class="skill-description">Containerized applications for consistent deployment.</p>
+        </div>
+    </div>
+
+    <div id="nlp" class="skills-grid">
+        <div class="skill-card">
+            <i class="fa-solid fa-exchange-alt skill-icon"></i>
+            <h4 class="skill-title">Seq-to-Seq Models</h4>
+            <p class="skill-description">Used in machine translation and text summarization.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-search-plus skill-icon"></i>
+            <h4 class="skill-title">Attention Mechanisms</h4>
+            <p class="skill-description">Enhanced performance of neural networks in NLP.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-keyboard skill-icon"></i>
+            <h4 class="skill-title">Language Modeling</h4>
+            <p class="skill-description">Developed models for text generation and prediction.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-sync skill-icon"></i>
+            <h4 class="skill-title">Transformers</h4>
+            <p class="skill-description">Core to many state-of-the-art NLP applications.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-highlighter skill-icon"></i>
+            <h4 class="skill-title">NER</h4>
+            <p class="skill-description">Extracted key information from unstructured text.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-comment-dots skill-icon"></i>
+            <h4 class="skill-title">Large Language Models</h4>
+            <p class="skill-description">Developed generative AI applications and models.</p>
+        </div>
+        <div class="skill-card">
+            <i class="fa-solid fa-arrow-up-right-dots skill-icon"></i>
+            <h4 class="skill-title">RLHF & DPO</h4>
+            <p class="skill-description">Fine-tuned LLMs for specific behaviors and preferences.</p>
+        </div>
+    </div>
+
+    <!-- Soft Skills Badges -->
+    <div class="mt-5 pt-5 border-top text-center" data-aos="fade-up">
+        <h3 class="fw-bold mb-4">Soft Skills & Methodologies</h3>
+        <div class="soft-skills-section">
+            <div class="skill-badge">Problem Solving</div>
+            <div class="skill-badge">Product Management</div>
+            <div class="skill-badge">People Management</div>
+            <div class="skill-badge">Academic Mentorship</div>
+        </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container"><p class="mb-0">&copy; 2026 Dr. Santanu Pal. All rights reserved.</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, offset: 50, duration: 800 });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const skillGrids = document.querySelectorAll('.skills-grid');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+
+                tabs.forEach(t => t.classList.remove('active'));
+                skillGrids.forEach(grid => grid.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
             });
         });
-    </script>
+    });
+  </script>
 </body>
 </html>

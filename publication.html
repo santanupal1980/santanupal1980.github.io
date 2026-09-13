@@ -1,132 +1,117 @@
-
 <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Santanu Pal - Publications</title>
-     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-     <link href="custom.css" rel="stylesheet">
-     <style>
-         :root {
-             --bg-color: #f8f9fa;
-             --card-bg: #ffffff;
-             --text-color: #1a202c;
-             --secondary-text: #4a5568;
-             --link-color: #4c51bf;
-             --border-color: #e2e8f0;
-             --nav-bg: #ffffff;
-             --nav-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-             --footer-bg: #f0f4f8;
-             --tier1-border-color: #fde047; /* A nice golden yellow for highlights */
-         }
-         .dark-mode {
-             --bg-color: #1a202c;
-             --card-bg: #2d3748;
-             --text-color: #e2e8f0;
-             --secondary-text: #a0aec0;
-             --link-color: #63b3ed;
-             --border-color: #4a5568;
-             --nav-bg: #2d3748;
-             --nav-shadow: none;
-             --footer-bg: #2d3748;
-             --tier1-border-color: #facc15; /* A slightly different yellow for dark mode */
-         }
-         body {
-             font-family: 'Inter', sans-serif;
-             background-color: var(--bg-color);
-             color: var(--text-color);
-             transition: background-color 0.3s, color 0.3s;
-         }
-         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-         .pub-card {
-             background-color: var(--card-bg);
-             border-radius: 0.5rem;
-             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1),
-                         0 2px 4px -1px rgba(0,0,0,0.06);
-             transition: transform 0.2s, box-shadow 0.2s;
-             cursor: pointer;
-         }
-         .dark-mode .pub-card { box-shadow: none; border: 1px solid var(--border-color); }
-         .pub-card.tier1 {
-            border-left: 5px solid var(--tier1-border-color);
-            box-shadow: 0 4px 6px -1px rgba(253, 224, 71, 0.2), 0 2px 4px -1px rgba(253, 224, 71, 0.1);
-            }
-         .pub-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
-                                                                 0 4px 6px -2px rgba(0,0,0,0.05); }
-         .pub-content { padding: 1.5rem; }
-         .pub-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-         .pub-meta { font-size: 0.875rem; color: var(--secondary-text); }
-         .tab { cursor: pointer; padding: 0.75rem 1.5rem; font-weight: 600;
-                border-bottom: 3px solid transparent; transition: border-color 0.2s, color 0.2s; }
-         .tab.active { border-color: var(--link-color); color: var(--link-color); }
-         .pub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
-         .modal { position: fixed; top:0; left:0; width:100%; height:100%;
-                  background-color: rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:50; }
-         .modal-content { background-color: var(--card-bg); color: var(--text-color);
-                          padding: 2rem; border-radius: 0.5rem; max-width: 800px; max-height: 90vh; overflow-y:auto; position:relative; }
-         .close-button { position:absolute; top:1rem; right:1rem; font-size: 1.5rem; cursor:pointer; }
-         footer { text-align:center; padding:20px 0; font-size:0.85rem; color: var(--secondary-text);
-                  background-color: var(--footer-bg); border-radius: 6px; margin-top:40px; }
-     
-        .logo-container {
-            width: 50px;
-            height: 50px;
-            min-width: 50px; /* Prevent shrinking in flexbox */
-        }
-        .pub-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-     </style>
- </head>
- <body>
- <div class="container">
-     <nav class="flex items-center justify-between py-6 px-4 bg-white rounded-lg shadow-md mb-8">
-         <div class="flex items-center space-x-4">
-             <a href="index.html"><img src="santanuPal.jpeg" alt="Santanu Pal" class="nav-profile-image"></a>
-             <!-- <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700"><i class="fas fa-adjust"></i></button> -->
-              <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </button>
-         </div>
-         <ul class="flex space-x-6">
-             <li><a href="index.html#about">About</a></li>
-             <li><a href="publication.html" class="text-blue-700 border-b-2 border-blue-700">Publications</a></li>
-             <li><a href="skills.html">Skills</a></li>
-             <li><a href="project.html">Projects</a></li>
-             <li><a href="index.html#cv">CV</a></li>
-             <li><a href="index.html#news">News</a></li>
-             <li><a href="index.html#contact">Contact</a></li>
-         </ul>
-     </nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Publications | Dr. Santanu Pal</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #0f2027; --secondary: #203a43; --accent: #2c5364;
+      --highlight: #0077b5; --light-bg: #f8f9fa; --text-dark: #2b2b2b; --text-muted: #6c757d;
+      --card-bg: #ffffff;
+      --tier1-border-color: #facc15; 
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); padding-top: 76px; background-color: var(--light-bg); }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; color: var(--primary); }
 
-     <section id="publications" class="mb-8">
-         <h2 class="text-3xl font-bold text-center mb-6">Publications</h2>
+    /* Navbar */
+    .navbar { padding: 15px 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--primary) !important; }
+    .nav-link { font-weight: 500; color: var(--secondary) !important; margin: 0 6px; transition: 0.3s; font-size: 0.95rem; position: relative; }
+    .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 50%; background-color: var(--highlight); transition: all 0.3s ease; transform: translateX(-50%); border-radius: 2px; }
+    .nav-link:hover::after, .nav-link.active::after { width: 85%; }
+    .nav-link:hover, .nav-link.active { color: var(--highlight) !important; font-weight: 700; }
 
-         <div class="tab-container flex justify-center space-x-2 sm:space-x-4 mb-8 border-b border-gray-300">
-             <div class="tab active" data-tab="all">All</div>
-             <div class="tab" data-tab="journal">Journal</div>
-             <div class="tab" data-tab="conference">Conference</div>
-             <div class="tab" data-tab="book-chapters">Book Chapters</div>
-             <div class="tab" data-tab="Year-wise"><a href="p2.html">Year-wise</a></div>
-         </div>
+    /* Page Header */
+    .page-header { padding: 80px 0 60px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); color: white; text-align: center; }
+    .page-header h1 { color: white; font-weight: 700; }
 
-         <div class="pub-grid" id="pub-grid">
-             </div>
-     </section>
+    /* Tabs */
+    .tab-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; border-bottom: 2px solid #e2e8f0; }
+    .tab { cursor: pointer; padding: 12px 24px; font-weight: 600; color: var(--secondary); border-bottom: 3px solid transparent; transition: 0.3s; margin-bottom: -2px; }
+    .tab a { color: inherit; text-decoration: none; }
+    .tab.active { border-color: var(--highlight); color: var(--highlight); }
+    .tab:hover { color: var(--highlight); }
 
-     <footer>&copy; 2024 Santanu Pal. All rights reserved.</footer>
- </div>
-
- <script>
-
+    /* Publication Cards */
+    .pub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+    .pub-card { background-color: var(--card-bg); border-radius: 10px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 25px; transition: 0.3s; border: 1px solid #eee; display: flex; align-items: flex-start; gap: 20px;}
+    .pub-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--highlight); }
+    .pub-card.tier1 { border-left: 5px solid var(--tier1-border-color); box-shadow: 0 4px 10px rgba(250, 204, 21, 0.2); }
     
- const venueLogos = {
+    .logo-container { width: 60px; height: 60px; flex-shrink: 0; }
+    .pub-logo { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; border: 1px solid #eee; padding: 2px; }
+    
+    .pub-content { flex-grow: 1; }
+    .pub-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--primary); line-height: 1.4; }
+    .pub-meta { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; }
+    .pub-meta strong { color: var(--text-dark); }
+
+    footer { background: #081115; color: #fff; padding: 25px 0; text-align: center; font-size: 0.9rem; margin-top: 60px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html#home">Dr. Santanu Pal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html#about">Experience</a></li>
+          <li class="nav-item"><a class="nav-link active" href="publication.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="skills.html">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#news">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container" data-aos="fade-up">
+      <h1>Publications</h1>
+      <p class="lead text-light">Journals, Conferences, and Book Chapters.</p>
+    </div>
+  </div>
+
+  <section class="container my-5" data-aos="fade-up">
+    <!-- Tabs -->
+    <div class="tab-container">
+      <div class="tab active" data-tab="all">All</div>
+      <div class="tab" data-tab="journal">Journal</div>
+      <div class="tab" data-tab="conference">Conference</div>
+      <div class="tab" data-tab="book-chapters">Book Chapters</div>
+      <div class="tab" data-tab="Year-wise"><a href="p2.html">Year-wise</a></div>
+    </div>
+
+    <!-- Publications Grid -->
+    <div class="pub-grid" id="pub-grid">
+      <!-- Injected via JS -->
+    </div>
+  </section>
+
+  <footer>
+    <div class="container"><p class="mb-0">&copy; 2026 Dr. Santanu Pal. All rights reserved.</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, offset: 50, duration: 800 });
+
+    const venueLogos = {
         "IEEE Transactions on Computational Social Systems": "https://placehold.co/50x50/196D98/fff?text=IEEE",
         "IEEE Access": "https://placehold.co/50x50/196D98/fff?text=IEEE",
         "Proceedings of the 25th Annual Conference of The European Association for Machine Translation": "https://placehold.co/50x50/003366/fff?text=EAMT",
@@ -137,20 +122,16 @@
         "ECIR": "https://placehold.co/50x50/E56A54/fff?text=ECIR",
         "IJCNLP-AACL": "https://placehold.co/50x50/4C9B6A/fff?text=IJCNLP",
         "LREC": "https://placehold.co/50x50/E56A54/fff?text=LREC",
-        // Add more venues here
     };
 
-    
-    const getLogoUrl = (venue) => {
-        return venueLogos[venue] || `https://placehold.co/50x50/666/fff?text=PUB`;
-    };
-
-    // A function to generate a placeholder public link (e.g., a Google Scholar search)
+    const getLogoUrl = (venue) => { return venueLogos[venue] || `https://placehold.co/50x50/666/fff?text=PUB`; };
     const getPublicLink = (title) => {
         const searchTitle = encodeURIComponent(title.replace(/\s+/g, ' '));
         return `https://scholar.google.com/scholar?q=${searchTitle}`;
     };
-const publications = {
+
+    // Publication Data Dictionary (Exact from source)
+    const publications = {
         journal: [
             { title: "Hybrid Quantum-Classical Neural Network for Multi-Modal Multi-Task Sarcasm, Emotion and Sentiment Analysis", authors: "A. Phukan, S. Pal, and A. Ekbal", venue: "IEEE Transactions on Computational Social Systems", year: "2024", isTier1: true },
             { title: "Let's All Laugh Together: A Novel Multitask Framework for Humor Detection in Internet Memes", authors: "G. Kumari, D. Bandyopadhyay, A. Ekbal, S. Pal, A. Chatterjee, and B. Vinutha", venue: "IEEE Transactions on Computational Social Systems", year: "2024", isTier1: true },
@@ -219,10 +200,8 @@ const publications = {
             { title: "Hybrid word alignment", authors: "S. Pal and S. K. Naskar", venue: "Hybrid Approaches to Machine Translation, Springer", year: "2016", isTier1: false },
             { title: "Mining Parallel Resources for Machine Trans-lation from Comparable Corpora", authors: "S. Pal, P. Pakray, A. Gelbukh, and J. van Genabith", venue: "Springer International Publishing", year: "2015", isTier1: false }
         ]
- };
+    };
 
-
-// --- Main Script Logic ---
     function renderPublications(filter) {
         const grid = document.getElementById('pub-grid');
         grid.innerHTML = '';
@@ -232,70 +211,47 @@ const publications = {
         } else {
             allPubs = publications[filter] || [];
         }
+        
         allPubs.forEach(pub => {
             const card = document.createElement('div');
-            card.className = `pub-card flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4 p-4 ${pub.isTier1 ? 'tier1' : ''}`;
+            card.className = `pub-card ${pub.isTier1 ? 'tier1' : ''}`;
 
-            // Create logo container and image
-            const logoContainer = document.createElement('div');
-            logoContainer.className = 'logo-container flex-shrink-0';
-            const logoImg = document.createElement('img');
-            logoImg.className = 'pub-logo rounded-full';
-            logoImg.src = getLogoUrl(pub.venue);
-            logoImg.alt = `${pub.venue} logo`;
-            logoContainer.appendChild(logoImg);
-
-            // Create content container
-            const pubContent = document.createElement('div');
-            pubContent.className = 'pub-content flex-grow p-0';
-            pubContent.innerHTML = `
-                <div class="flex items-center space-x-2">
+            card.innerHTML = `
+                <div class="logo-container">
+                    <img src="${getLogoUrl(pub.venue)}" class="pub-logo" alt="${pub.venue} logo">
+                </div>
+                <div class="pub-content">
                     <h3 class="pub-title">
                         ${pub.title} 
-                        ${pub.isTier1 ? '<span class="text-yellow-400 dark:text-yellow-300">⭐</span>' : ''}
-                        <a href="${getPublicLink(pub.title)}" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 text-blue-500 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                           <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                           <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-5a1 1 0 10-2 0v5H5V7h5a1 1 0 000-2H5z" />
-                         </svg>
-                     </a>
-                        </h3>
-                    
+                        ${pub.isTier1 ? '<span style="color: #facc15;" title="Tier 1 Publication">⭐</span>' : ''}
+                        <a href="${getPublicLink(pub.title)}" target="_blank" rel="noopener noreferrer" style="color: var(--highlight); margin-left: 8px;">
+                           <i class="fas fa-external-link-alt" style="font-size: 0.9rem;"></i>
+                        </a>
+                    </h3>
+                    <p class="pub-meta"><strong>Authors:</strong> ${pub.authors}</p>
+                    <p class="pub-meta"><strong>Venue:</strong> ${pub.venue}</p>
+                    <p class="pub-meta"><strong>Year:</strong> ${pub.year}</p>
                 </div>
-                <p class="pub-meta"><strong>Authors:</strong> ${pub.authors}</p>
-                <p class="pub-meta"><strong>Venue:</strong> ${pub.venue}</p>
-                <p class="pub-meta"><strong>Year:</strong> ${pub.year}</p>
-                   `;
-            
-            card.appendChild(logoContainer);
-            card.appendChild(pubContent);
+            `;
             grid.appendChild(card);
         });
     }
 
-    // --- Event Listeners ---
     document.addEventListener('DOMContentLoaded', () => {
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
+            tab.addEventListener('click', (e) => {
+                if(tab.dataset.tab === "Year-wise") return; // Link handled natively via anchor tag
+                
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 renderPublications(tab.dataset.tab);
             });
         });
 
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-        });
-
         // Initial render
         renderPublications('all');
     });
- </script>
-
-
-
-
+  </script>
 </body>
- </html>
+</html>

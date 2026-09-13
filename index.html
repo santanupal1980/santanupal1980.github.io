@@ -1,357 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santanu Pal</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="custom.css" rel="stylesheet">
-    <style>
-        
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Dr. Santanu Pal | NLP & AI Researcher</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #0f2027;
+      --secondary: #203a43;
+      --accent: #2c5364;
+      --highlight: #0077b5;
+      --highlight-hover: #005a8c;
+      --light-bg: #f8f9fa;
+      --text-dark: #2b2b2b;
+      --text-muted: #6c757d;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
+    /* Native Smooth Scrolling */
+    html { scroll-behavior: smooth; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .hero-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 4px solid var(--link-color);
-        }
-        
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-        
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--secondary-text);
-            margin-top: 0.5rem;
-        }
-        
-        .hero-tagline {
-            font-size: 1rem;
-            color: var(--secondary-text);
-            margin-top: 1rem;
-            max-width: 600px;
-        }
-        
-        .hero-summary {
-            font-size: 1rem;
-            color: var(--secondary-text);
-            margin-top: 1.5rem;
-            max-width: 800px;
-        }
-        
-        .hero-links {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .hero-links a {
-            font-size: 1.5rem;
-            color: var(--secondary-text);
-            transition: color 0.2s;
-        }
-        
-        .hero-links a:hover {
-            color: var(--link-color);
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      position: relative; 
+    }
 
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      color: var(--primary);
+    }
 
-        .about-card {
-            background-color: var(--card-bg);
-            border-radius: 0.5rem;
-            padding: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: background-color 0.3s;
-        }
+    /* Navbar & Scrollspy Underline */
+    .navbar {
+      transition: all 0.4s ease;
+      padding: 15px 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--primary) !important; }
+    
+    .nav-item { position: relative; }
+    .nav-link { 
+      font-weight: 500; 
+      color: var(--secondary) !important; 
+      margin: 0 6px; 
+      transition: 0.3s; 
+      font-size: 0.95rem; 
+      position: relative;
+    }
+    
+    /* Animated Ruler Underline */
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: -4px;
+      left: 50%;
+      background-color: var(--highlight);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 85%; }
+    .nav-link:hover, .nav-link.active { color: var(--highlight) !important; font-weight: 700; }
 
-        .dark-mode .about-card {
-            box-shadow: none;
-            border: 1px solid var(--border-color);
-        }
+    /* Custom Buttons */
+    .btn-custom-solid {
+      background-color: var(--highlight);
+      color: #fff;
+      border: none;
+      transition: 0.3s;
+    }
+    .btn-custom-solid:hover {
+      background-color: var(--highlight-hover);
+      color: #fff;
+    }
+    
+    .btn-custom-outline {
+      color: var(--highlight);
+      border: 2px solid var(--highlight);
+      background: transparent;
+      transition: 0.3s;
+    }
+    .btn-custom-outline:hover {
+      background-color: var(--highlight);
+      color: #fff;
+    }
 
-        .about-card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--link-color);
-            margin-bottom: 1rem;
-        }
+    /* Hero Section */
+    .hero {
+      padding: 160px 0 80px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      color: white;
+      position: relative;
+    }
+    .hero h1 { color: white; font-size: 3rem; font-weight: 700; margin-bottom: 15px; }
+    .hero h2 { color: #e0e0e0; font-size: 1.5rem; font-weight: 400; height: 40px; }
+    .hero-img {
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border: 4px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease;
+    }
+    .hero-img:hover { transform: scale(1.02); }
+    .social-links a { color: white; font-size: 1.5rem; margin-right: 15px; transition: 0.3s; }
+    .social-links a:hover { color: var(--highlight); transform: translateY(-3px); display: inline-block; }
 
-        .about-card p {
-            color: var(--secondary-text);
-            line-height: 1.6;
-        }
-        
-        .about-more-link {
-            color: var(--link-color);
-            text-decoration: underline;
-        }
+    /* Sections */
+    section { padding: 70px 0; scroll-margin-top: 80px; }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      width: 60px;
+      background: var(--highlight);
+      border-radius: 2px;
+    }
 
-        .cv-link {
-            display: inline-block;
-            background-color: var(--link-color);
-            color: #ffffff;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s;
-        }
-        
-        .cv-link:hover {
-            background-color: #4347b5;
-        }
-        
-        .news-card {
-            background-color: var(--card-bg);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-        }
+    /* Cards */
+    .pro-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      height: 100%;
+      border: 1px solid #eee;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+    .pro-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      border-color: var(--highlight);
+    }
+    .pro-card i.card-icon { font-size: 2.5rem; color: var(--highlight); margin-bottom: 20px; }
 
-        .dark-mode .news-card {
-            box-shadow: none;
-            border: 1px solid var(--border-color);
-        }
+    /* Compact Skills Snapshot */
+    .progress { background-color: #e9ecef; overflow: visible; }
+    .progress-bar { background-color: var(--highlight); border-radius: 4px; }
 
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .news-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .news-date {
-            font-size: 0.875rem;
-            color: var(--secondary-text);
-            margin-bottom: 1rem;
-        }
+    /* Badges */
+    .tech-badge {
+      background: #fff;
+      border: 1px solid #ddd;
+      color: var(--secondary);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+      margin: 0 6px 8px 0;
+      transition: 0.3s;
+    }
+    .tech-badge:hover { background: var(--highlight); color: white; border-color: var(--highlight); box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
 
-        .contact-info {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    /* Video Wrapper */
+    .video-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      background: #000;
+      margin-bottom: 20px;
+    }
+    .video-wrapper:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
 
-        .contact-info p {
-            color: var(--secondary-text);
-        }
+    /* News & Theses Timeline/Box */
+    .news-item {
+      border-left: 3px solid var(--highlight);
+      padding-left: 20px;
+      margin-bottom: 25px;
+      position: relative;
+    }
+    .news-item::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 5px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: var(--highlight);
+      border: 3px solid #fff;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    .news-item.purple-line { border-left-color: #8e44ad; }
+    .news-item.purple-line::before { background: #8e44ad; }
+    
+    .news-date { font-size: 0.85rem; color: var(--highlight); font-weight: 600; margin-bottom: 5px; }
+    .news-date.purple-text { color: #8e44ad; }
+    
+    /* Publication List Item */
+    .pub-item-home {
+      border-left: 3px solid var(--highlight);
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+    .pub-title { font-weight: 600; color: var(--primary); margin-bottom: 5px; font-size: 1.05rem; }
+    .pub-authors { font-size: 0.9rem; color: var(--text-dark); margin-bottom: 3px; }
+    .pub-venue { font-size: 0.85rem; font-style: italic; color: var(--text-muted); }
 
-        .contact-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 1rem;
-        }
+    .semester-box { border-left: 4px solid var(--highlight); padding-left: 20px; margin-bottom: 30px; }
+    .semester-box h4 { color: var(--secondary); font-weight: 700; margin-bottom: 15px; }
+    
+    /* Contact Box */
+    .contact-info { background: var(--primary); color: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .contact-info a { color: #a8d5e5; transition: 0.3s; }
+    .contact-info a:hover { color: white; }
 
-        .contact-list li {
-            font-size: 1rem;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-list a {
-            color: var(--link-color);
-            text-decoration: underline;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            background-color: var(--footer-bg);
-            border-radius: 6px;
-            margin-top: 40px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            nav ul {
-                margin-top: 1rem;
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-    </style>
+    /* Footer */
+    footer { background: #081115; color: #fff; padding: 25px 0; text-align: center; font-size: 0.9rem; }
+  </style>
 </head>
-<body class="bg-gray-100">
+
+<body>
+
+  <!-- Navigation -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-        <nav class="flex items-center justify-between py-6 px-4 bg-white rounded-lg shadow-md mb-8">
-            <div class="flex items-center space-x-4">
-                <a href="index.html">
-                    <img src="santanuPal.jpeg" alt="Santanu Pal" class="nav-profile-image">
-                </a>
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </button>
-            </div>
-            <ul class="flex space-x-6">
-                <li><a href="index.html#about" class="active">About</a></li>
-                <li><a href="publication.html">Publications</a></li>
-                <li><a href="skills.html">Skills</a></li>
-                <li><a href="project.html">Projects</a></li>
-                <li><a href="index.html#cv">CV</a></li>
-                <li><a href="index.html#news">News</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
-        </nav>
-
-        <header class="hero">
-            <img src="santanuPal.jpeg" alt="Santanu Pal" class="hero-image">
-            <h1 class="hero-title">Santanu Pal</h1>
-            <p class="hero-subtitle">Senior Scientist | Computational Linguist | NLP & Generative AI Researcher</p>
-            <p class="hero-tagline">
-                Transforming AI research into real-world impact: Expert in NLP, low-resource MT, and AI for healthcare. Driving innovation through ethical, interdisciplinary, and industry-ready AI solutions.
-            </p>
-            <p class="hero-summary">
-                I am a Research scientist specializing in Natural Language Processing (NLP), Machine Translation (MT), Generative AI (GEN AI) and Agentic AI. My research focuses on developing multilingual, human-centric AI systems for various domains. Since 2020, as a Lead Scientist at Wipro, I've led projects, collaborated academically, and secured a **US patent**. For more details about my work, explore my comprehensive Publications and leading Projects.
-            </p>
-            <div class="hero-links">
-                <a href="https://scholar.google.com/citations?user=bYP2jIgAAAAJ&hl=en" target="_blank" aria-label="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
-                <a href="https://www.linkedin.com/in/dr-santanu-pal-6511076a/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </div>
-        </header>
-
-        <section id="about" class="mb-12">
-            <h2 class="section-title">About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="about-card">
-                    <h3 class="about-card-title">Core Expertise</h3>
-                    <p>
-                        I am a **Computational Linguist and AI Researcher** specializing in **Natural Language Processing (NLP), Machine Translation (MT), and Generative AI**. My research focuses on developing **multilingual, human-centric AI systems** for healthcare, legal, and tourism.
-                    </p>
-                </div>
-                <div class="about-card">
-                    <h3 class="about-card-title">Research Vision</h3>
-                    <p>
-                        My ultimate goal is to create **adaptive, trustworthy AI** that enhances global communication, improves decision-making, and drives long-term positive behavioral change. I champion habit formation models, multilingual AI, and responsible generative NLP.
-                    </p>
-                </div>
-                <div class="about-card">
-                    <h3 class="about-card-title">Professional Journey</h3>
-                    <p>
-                        With over a decade in academic and industry R&D, I began my NLP journey in 2008 at Jadavpur University. My PhD and postdoc at Saarland University focused on MT. Since 2020, as a Senior Architect and Scientist at Wipro, I've led projects, collaborated academically, and secured a **US patent**. For more details about my work, explore my comprehensive <a href="publication.html" class="about-more-link">publications</a>.
-                    </p>
-                </div>
-                <div class="about-card">
-                    <h3 class="about-card-title">Community Engagement</h3>
-                    <p>
-                        I actively contribute to the MT research community by organizing **WMT workshops and shared tasks**. My work is published in **top-tier conferences and journals**, and I serve as a reviewer, Program Committee (PC), Senior Program Committee (SPC), and Area Chair (AC) member for leading venues.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="cv" class="mb-12">
-            <h2 class="section-title">Curriculum Vitae (CV)</h2>
-            <div class="text-center">
-                <p class="mb-4 text-gray-600 dark:text-gray-400">Download my full Curriculum Vitae for a detailed overview of my experience and qualifications.</p>
-                <a href="SPAL_resume_updated.pdf" target="_blank" class="cv-link" download><i class="fas fa-download mr-2"></i>Short CV (PDF)</a>
-                <a href="SantanuCV_academy.pdf" target="_blank" class="cv-link" download> <i class="fas fa-download mr-2"></i>Academic CV (PDF)</a>
-            </div>
-        </section>
-
-        <section id="news" class="mb-12">
-            <h2 class="section-title">News</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="news-card">
-                    <h3 class="news-title">New Workshop: QuantumNLP</h3>
-                    <p class="news-date">Dec 23-24, 2025</p>
-                    <p class="text-gray-600 dark:text-gray-400">I am organizing the QuantumNLP workshop under the 14th IJCNLP-AACL 2025 in Mumbai, India.</p>
-                </div>
-                <div class="news-card">
-                    <h3 class="news-title">WMT Workshops and Shared Tasks</h3>
-                    <p class="news-date">2019-2025</p>
-                    <p class="text-gray-600 dark:text-gray-400">Organizing SLT and IndicMT tasks with the Conference on Machine Translation (WMT).</p>
-                </div>
-                <div class="news-card">
-                    <h3 class="news-title">Published in Top-Tier Venues</h3>
-                    <p class="news-date">Ongoing</p>
-                    <p class="text-gray-600 dark:text-gray-400">My papers have been published in top venues like ACL, CHI, EACL, COLING, ECIR, and LREC.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="mb-8">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-info">
-                <p>Feel free to reach out for collaborations or inquiries.</p>
-                <ul class="contact-list">
-                    <li>Email: <a href="mailto:santanu.pal.ju@gmail.com">santanu.pal.ju@gmail.com</a></li>
-                </ul>
-            </div>
-        </section>
-
-        <footer>
-            &copy; 2024 Santanu Pal. All rights reserved.
-        </footer>
+      <a class="navbar-brand" href="#home">Dr. Santanu Pal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#research">Research</a></li>
+          <li class="nav-item"><a class="nav-link" href="#theses">Theses & HiWi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#teaching">Teaching</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#community">Community</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Theme Toggling
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const storedTheme = localStorage.getItem('theme');
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7" data-aos="fade-right">
+          <p class="text-uppercase tracking-wide mb-2" style="letter-spacing: 2px; color: #a8d5e5; font-weight: 600;">AI & NLP Researcher</p>
+          <h3 class="mb-3" style="color: #e5cea8;">Advancing AI Research.<br><span style="color: #a8d5e5;">Empowering Innovation & Architecting Intelligence.</span></h3>
+          <h3><span id="typed-text" style="color: #d8e8ee;"></span></h3>
+          <p class="mt-4 mb-4" style="font-size: 1.15rem; color: #e0e0e0; max-width: 660px; line-height: 1.7;">
+            I am an experienced AI researcher and NLP architect with a proven track record spanning top-tier academic institutions and global enterprise R&D. Currently serving as a Postdoctoral Researcher at TUM Campus Heilbronn and formerly a Lead Scientist at Wipro Lab45, I specialize in Natural Language Processing and Deep Learning. I build AI that grasps the true nuances of human communication. My current research focuses on culturally aware Machine Translation, Pragmatics in MT, autonomous Agentic workflows, and Quantum NLP. I am also actively involved in guiding theses and mentoring students in cutting-edge AI research.
+          </p>
+          
+          <div class="social-links mt-4">
+            <a href="https://www.linkedin.com/in/dr-santanu-pal-6511076a/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://scholar.google.com/citations?user=bYP2jIgAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+            <a href="https://github.com/santanupal1980?tab=repositories" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+          <div class="mt-5">
+            <a href="SantanuCV_academy.pdf" target="_blank" class="btn btn-outline-light rounded-pill px-4 py-2 me-3 fw-semibold mb-2">Academic CV</a>
+            <a href="SPAL_resume_updated.pdf" target="_blank" class="btn btn-custom-solid rounded-pill px-4 py-2 fw-semibold mb-2">Industry Resume</a>
+          </div>
+        </div>
+        <div class="col-lg-5 text-center mt-5 mt-lg-0" data-aos="fade-left">
+          <img src="santanuPal.jpeg" alt="Dr. Santanu Pal" class="img-fluid hero-img mb-4" style="max-width: 340px;">
+          
+          <!-- Google Scholar Metrics (Under Photo) -->
+          <div class="p-3 bg-white rounded-4 shadow-sm border text-center mx-auto" style="max-width: 350px;">
+            <h6 class="fw-bold mb-3" style="color: var(--primary);">Google Scholar Metrics</h6>
+            <div class="row g-2 align-items-center">
+              <div class="col-4">
+                <div class="fs-4 fw-bold" style="color: var(--highlight);">2514+</div>
+                <div class="text-muted fw-semibold" style="font-size: 0.75rem;">Citations</div>
+              </div>
+              <div class="col-4 border-start border-end">
+                <div class="fs-4 fw-bold" style="color: var(--primary);">24</div>
+                <div class="text-muted fw-semibold" style="font-size: 0.75rem;">h-index</div>
+              </div>
+              <div class="col-4">
+                <div class="fs-4 fw-bold" style="color: var(--primary);">46</div>
+                <div class="text-muted fw-semibold" style="font-size: 0.75rem;">i10-index</div>
+              </div>
+            </div>
+            <a href="https://scholar.google.com/citations?user=bYP2jIgAAAAJ&hl=en" target="_blank" class="btn btn-sm btn-custom-outline rounded-pill w-100 mt-3 fw-semibold" style="font-size: 0.85rem;">
+              View Live Profile <i class="fas fa-external-link-alt ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            if (storedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
+  <!-- News & Updates -->
+  <section id="news" class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12" data-aos="fade-up">
+          <h2 class="section-title">News & Updates</h2>
+          <div class="bg-white p-5 rounded-4 shadow-sm border mt-4">
+            
+            <div class="news-item purple-line">
+              <div class="news-date purple-text"><i class="fas fa-atom me-2"></i> Upcoming 2026</div>
+              <h5 class="fw-bold mb-2">Quantum NLP Workshop at ICON 2026</h5>
+              <p class="text-muted mb-0">Continuing our journey to bridge quantum computing and computational linguistics, we are co-organizing the next iteration of the <a href="http://qnlp.in/" target="_blank" class="fw-semibold" style="color: #8e44ad;">QNLP Workshop</a> at ICON 2026, following our successful event at IJCNLP-AACL 2025.</p>
+            </div>
 
-            themeToggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                }
-            });
+            <div class="news-item">
+              <div class="news-date"><i class="fas fa-calendar-alt me-2"></i> Ongoing 2026</div>
+              <h5 class="fw-bold mb-2">WMT 26 Indic-MT Shared Task</h5>
+              <p class="text-muted mb-0">I am actively co-organizing the WMT 26 Shared Task on Indic Language Translation. We are evaluating submissions focused on robust translation between English and various low-resource Indic languages. <a href="https://www2.statmt.org/wmt26/indic-mt-task.html" target="_blank" class="fw-semibold" style="color: var(--highlight);">Learn more about the task</a>.</p>
+            </div>
+
+            <div class="news-item">
+              <div class="news-date"><i class="fas fa-calendar-alt me-2"></i> Recent</div>
+              <h5 class="fw-bold mb-2">MCML Research Group Association</h5>
+              <p class="text-muted mb-0">I am thrilled to be collaborating as a Postdoctoral Researcher within the <a href="https://mcml.ai/research/groups/fraser/" target="_blank" class="fw-semibold" style="color: var(--highlight);">MCML Research Group Alexander Fraser</a>. Our focus aims at addressing data sparsity and integrating linguistic knowledge in advanced AI systems.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience & Skills Snapshot -->
+  <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pe-lg-5" data-aos="fade-up">
+          <h2 class="section-title">Industry & Academic Profile</h2>
+          
+          <h6 class="fw-bold mb-2 text-primary"><i class="fas fa-university me-2" style="color: var(--highlight);"></i> Postdoctoral Researcher, TUM Campus Heilbronn</h6>
+          <p class="mb-4 text-muted small">Currently driving research in data analytics, Pragmatics in MT, personalized translation, and deep learning architectures.</p>
+          
+          <h6 class="fw-bold mb-2 text-primary"><i class="fas fa-building me-2" style="color: var(--highlight);"></i> Former Lead Scientist & Sr. Architect, Wipro Lab45</h6>
+          <p class="mb-4 text-muted small">Over six years leading applied AI research and architecting enterprise-scale solutions. Bridged the gap between academic theory and scalable production models.</p>
+          
+          <h6 class="fw-bold mb-2 text-primary"><i class="fas fa-graduation-cap me-2" style="color: var(--highlight);"></i> Postdoc & PhD, Saarland University & DFKI</h6>
+          <p class="mb-4 text-muted small">Completed my PhD and served as a Postdoctoral Researcher at DFKI and Saarland University, shaping early advancements in automated post-editing and interactive MT.</p>
+
+          <h6 class="fw-bold mb-2 text-primary"><i class="fas fa-microscope me-2" style="color: var(--highlight);"></i> Researcher, Jadavpur University</h6>
+          <p class="mb-4 text-muted small">Conducted foundational research in NLP and Machine Translation, building the groundwork for my advanced studies in computational linguistics.</p>
+          
+        </div>
+        
+        <!-- Compact Skills Snapshot -->
+        <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
+          <div class="p-4 bg-light rounded-4 border h-100">
+            <h4 class="fw-bold mb-4">Skills Snapshot</h4>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <div class="small fw-semibold mb-1">Machine Translation (Dialect)</div>
+                <div class="progress" style="height: 5px;"><div class="progress-bar" style="width: 95%"></div></div>
+              </div>
+              <div class="col-md-6">
+                <div class="small fw-semibold mb-1">LLM Architectures (S4)</div>
+                <div class="progress" style="height: 5px;"><div class="progress-bar" style="width: 90%"></div></div>
+              </div>
+              <div class="col-md-6">
+                <div class="small fw-semibold mb-1">Agentic AI Workflows</div>
+                <div class="progress" style="height: 5px;"><div class="progress-bar" style="width: 85%"></div></div>
+              </div>
+              <div class="col-md-6">
+                <div class="small fw-semibold mb-1">Multimodal Explainability</div>
+                <div class="progress" style="height: 5px;"><div class="progress-bar" style="width: 80%"></div></div>
+              </div>
+              
+              <!-- Highlighted Management Skills -->
+              <div class="col-md-6 mt-4">
+                <div class="small fw-bold mb-1" style="color: var(--highlight);"><i class="fas fa-tasks me-1"></i> Product Management</div>
+                <div class="progress" style="height: 5px;"><div class="progress-bar bg-info" style="width: 90%"></div></div>
+              </div>
+              <div class="col-md-6 mt-4">
+                <div class="small fw-bold mb-1" style="color: var(--highlight);"><i class="fas fa-users me-1"></i> People Management</div>
+                <div class="progress" style="height: 5px;"><div class="progress-bar bg-info" style="width: 85%"></div></div>
+              </div>
+            </div>
+            
+            <h6 class="fw-bold mt-4 mb-3">Tech Stack</h6>
+            <div class="d-flex flex-wrap">
+              <span class="tech-badge"><i class="fa-brands fa-python me-1"></i>Python</span>
+              <span class="tech-badge"><i class="fa-solid fa-fire me-1"></i>PyTorch</span>
+              <span class="tech-badge"><i class="fa-solid fa-layer-group me-1"></i>TensorFlow</span>
+              <span class="tech-badge"><i class="fa-solid fa-face-smiling-hands me-1"></i>Hugging Face</span>
+              <span class="tech-badge"><i class="fa-solid fa-server me-1"></i>Slurm Clusters</span>
+              <span class="tech-badge"><i class="fa-brands fa-docker me-1"></i>MLOps</span>
+              <span class="tech-badge"><i class="fa-solid fa-database me-2"></i>Data Analytics</span>
+              <span class="tech-badge"><i class="fa-brands fa-git-alt me-2"></i>Git / GitHub</span>
+            </div>
+            <a href="skills.html" class="d-inline-block mt-2 small fw-semibold" style="color: var(--highlight);">View Full Skills Inventory <i class="fas fa-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Research Areas & Publications -->
+  <section id="research" class="bg-light">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Research & Publications</h2>
+      
+      <!-- Research Area Cards -->
+      <div class="row gy-4 mt-3 mb-5">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="pro-card">
+            <i class="fas fa-comments card-icon"></i>
+            <h4>Pragmatics & Personalized MT</h4>
+            <p class="text-muted small mb-0">Enhancing contextual understanding, regional dialect processing, and user-specific adaptations in automated translation frameworks.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="pro-card">
+            <i class="fas fa-book-open card-icon"></i>
+            <h4>Low-Resource & Agentic MT</h4>
+            <p class="text-muted small mb-0">Investigating autonomous workflows, system translation, and automatic post-editing specifically for low-resource Indic languages.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="pro-card">
+            <i class="fas fa-brain card-icon"></i>
+            <h4>LLM Architectural Mechanisms</h4>
+            <p class="text-muted small mb-0">Exploring Latent Backward Planning (LBP), Latent Visual Reasoning (LVR), and the efficiency of State Space Models (S4/Mamba).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected Publications -->
+      <!-- Selected Publications -->
+      <div class="row mt-5" data-aos="fade-up">
+        <div class="col-lg-12">
+          <div class="p-4 bg-white rounded-4 shadow-sm border">
+            <h4 class="fw-bold border-bottom pb-3 mb-4">Selected Publications</h4>
+            
+            <!-- Publication Item 1 (Recent Tier 1 Journal) -->
+            <div class="pub-item-home">
+              <div class="pub-title">Hybrid Quantum-Classical Neural Network for Multi-Modal Multi-Task Sarcasm, Emotion and Sentiment Analysis <span style="color: #facc15; font-size: 0.9rem;" title="Tier 1 Publication">⭐</span></div>
+              <div class="pub-authors">A. Phukan, <strong>S. Pal</strong>, and A. Ekbal</div>
+              <div class="pub-venue">IEEE Transactions on Computational Social Systems (2024)</div>
+            </div>
+            
+            <!-- Publication Item 2 (High-Impact Recent Conference) -->
+            <div class="pub-item-home">
+              <div class="pub-title">TRAVID: An End-to-End Video Translation Framework <span style="color: #facc15; font-size: 0.9rem;" title="Tier 1 Publication">⭐</span></div>
+              <div class="pub-authors">P. K. Adhikary, B. Sugandhi, S. Ghimire, <strong>S. Pal</strong>, and P. Pakray</div>
+              <div class="pub-venue">IJCNLP-AACL (2023)</div>
+            </div>
+            
+            <!-- Publication Item 3 (Top-Tier Flagship NLP Conference) -->
+            <div class="pub-item-home">
+              <div class="pub-title">MMPE: A Multi-Modal Interface for Post-Editing Machine Translation <span style="color: #facc15; font-size: 0.9rem;" title="Tier 1 Publication">⭐</span></div>
+              <div class="pub-authors">N. Herbig, T. Düwel, <strong>S. Pal</strong>, K. Meladaki, M. Monshizadeh, A. Krüger, and J. van Genabith</div>
+              <div class="pub-venue">Association for Computational Linguistics (ACL) (2020)</div>
+            </div>
+            
+            <!-- View More Link -->
+            <div class="text-center mt-4 pt-3 border-top">
+              <a href="publication.html" class="btn btn-custom-outline rounded-pill px-4 py-2 fw-semibold">View All Publications</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Theses, Guiding Research & HiWi Positions -->
+  <section id="theses">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Theses & Guiding Research</h2>
+      <!-- <p class="text-muted mb-5" data-aos="fade-up">I am actively supervising theses and hiring student assistants at TUM Campus Heilbronn. If you are passionate about PyTorch, LLMs, or low-resource machine translation, please get in touch.</p> -->
+
+      <p class="text-muted mb-5" data-aos="fade-up">I am actively supervising theses at TUM Campus Heilbronn. If you are passionate about PyTorch, LLMs, or low-resource machine translation, please get in touch.</p>
+      
+      <div class="row gy-4">
+        <!-- Open Theses -->
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="p-4 bg-white rounded-4 shadow-sm border h-100" style="border-top: 4px solid var(--highlight) !important;">
+            <h4 class="fw-bold mb-4"><i class="fas fa-graduation-cap me-2" style="color: var(--highlight);"></i> Open Master's & Bachelor's Theses</h4>
+            <ul class="list-unstyled text-muted">
+              <li class="mb-3">
+                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-chevron-right me-2 text-primary" style="font-size: 0.8rem;"></i>Dialect Adaptation & Personalized MT</h6>
+                <p class="small ms-4 mb-0">Developing contextual awareness algorithms to improve translation accuracy for regional dialects.</p>
+              </li>
+              <li class="mb-3">
+                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-chevron-right me-2 text-primary" style="font-size: 0.8rem;"></i>Agentic Workflows for Indic Translation</h6>
+                <p class="small ms-4 mb-0">Designing multi-step autonomous reasoning systems mapped to low-resource Indic languages.</p>
+              </li>
+              <li>
+                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-chevron-right me-2 text-primary" style="font-size: 0.8rem;"></i>Latent Backward Planning in LLMs</h6>
+                <p class="small ms-4 mb-0">A comparative analysis of reverse-logic deduction capabilities in modern LLM architectures.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- HiWi Positions -->
+        <div class="col-lg-6" data-aos="fade-left">
+          <!-- <div class="p-4 bg-white rounded-4 shadow-sm border h-100" style="border-top: 4px solid var(--secondary) !important;">
+            <h4 class="fw-bold mb-4"><i class="fas fa-laptop-code me-2" style="color: var(--secondary);"></i> Student Assistants (HiWi)</h4> -->
+            <div class="p-4 bg-white rounded-4 shadow-sm border h-100" style="border-top: 4px solid var(--secondary) !important;">
+            <h4 class="fw-bold mb-4"><i class="fas fa-laptop-code me-2" style="color: var(--secondary);"></i> Student should have expertise</h4>
+            <p class="text-muted small mb-4">I am currently looking for students with a strong technical background to assist with ongoing AI framework development and data curation. Experience in the following areas is highly desired:</p>
+            <ul class="list-unstyled text-muted mb-4">
+              <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Hugging Face pipelines and PyTorch implementation</li>
+              <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Slurm workload management on GPU clusters</li>
+              <li><i class="fas fa-check text-success me-2"></i> Data curation for dialects and low-resource languages</li>
+            </ul>
+            <a href="mailto:santanu.pal@tum.de" class="btn btn-custom-outline rounded-pill px-4 py-2 fw-semibold w-100">Apply via Email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lectures & Teaching -->
+  <section id="teaching" class="bg-light">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Lectures & Teaching</h2>
+      <p class="text-muted mb-5" data-aos="fade-up">Currently delivering academic lectures at the university level, bridging theoretical AI concepts with practical implementations.</p>
+      
+      <div class="row">
+        <!-- Winter Semester -->
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="semester-box bg-white p-4 rounded shadow-sm h-100">
+            <h4><i class="fas fa-snowflake me-2 text-info"></i> Winter Semester Offerings</h4>
+            <ul class="list-unstyled mt-4">
+              <li class="mb-3">
+                <h6 class="fw-bold mb-1">Machine Learning</h6>
+                <p class="text-muted small">Foundational and advanced concepts in statistical learning, model evaluation, and predictive analytics.</p>
+              </li>
+              <li class="mb-3">
+                <h6 class="fw-bold mb-1">Natural Language Processing</h6>
+                <p class="text-muted small">Comprehensive exploration of modern NLP, from sequence-to-sequence models to transformer-based LLMs.</p>
+              </li>
+              <li>
+                <h6 class="fw-bold mb-1">Deep Learning</h6>
+                <p class="text-muted small">In-depth study of neural network architectures, including CNNs, RNNs, Attention mechanisms, and State Space Models.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Summer Semester -->
+        <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
+          <div class="semester-box bg-white p-4 rounded shadow-sm h-100" style="border-left-color: #f39c12;">
+            <h4><i class="fas fa-sun me-2 text-warning"></i> Summer Semester Offerings</h4>
+            <ul class="list-unstyled mt-4">
+              <li class="mb-3">
+                <h6 class="fw-bold mb-1">Advanced Natural Language Processing</h6>
+                <p class="text-muted small">Specialized topics including Dialect Adaptation, Pragmatics in MT, and Low-Resource language processing.</p>
+              </li>
+              <li class="mb-3">
+                <h6 class="fw-bold mb-1">Agentic AI & LLM Architectures</h6>
+                <p class="text-muted small">Seminar focusing on autonomous workflows, Latent Backward Planning, and prompt engineering strategies.</p>
+              </li>
+              <li>
+                <h6 class="fw-bold mb-1">Practical Data Analytics</h6>
+                <p class="text-muted small">Hands-on implementation of machine learning models using PyTorch, Hugging Face, and cluster environments.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects & Demos -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Projects & Demos</h2>
+      <p class="text-muted mb-5" data-aos="fade-up">A mix of interactive interface demonstrations and enterprise-scale applied AI initiatives.</p>
+      
+      <div class="row gy-4">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="pro-card p-4">
+            <div class="video-wrapper ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/tkJ9OWmDd0s" title="MMPE Interface Demo" allowfullscreen></iframe>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <i class="fas fa-keyboard fs-3 me-3" style="color: var(--highlight);"></i>
+              <div>
+                <h5 class="fw-bold mb-1">MMPE: Multi-Modal Interface</h5>
+                <p class="text-muted small mb-0">An advanced interface utilizing Handwriting, Touch, and Speech commands specifically designed for Post-Editing Machine Translation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="pro-card p-4">
+            <div class="video-wrapper ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/XNNp1xF5H0Y" title="TRAVID Demo" allowfullscreen></iframe>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <i class="fas fa-video fs-3 me-3" style="color: var(--highlight);"></i>
+              <div>
+                <h5 class="fw-bold mb-1">TRAVID: Translating Videos Online</h5>
+                <p class="text-muted small mb-0">An end-to-end video translation framework allowing users to translate educational content into multiple Indian languages.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="pro-card">
+            <i class="fas fa-heartbeat card-icon"></i>
+            <h5 class="fw-bold">Project Zenify</h5>
+            <p class="text-muted small mb-0">A cognitive-agentic artificial intelligence system designed to support chronic health condition management through wearable data integration and persuasive interaction.</p>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="pro-card">
+            <i class="fas fa-image card-icon"></i>
+            <h5 class="fw-bold">Project EXCLAIM</h5>
+            <p class="text-muted small mb-0">Research focused on multimodal meme explainability by identifying entities and labeling roles to generate comprehensive natural language explanations.</p>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="pro-card">
+            <i class="fas fa-shield-halved card-icon"></i>
+            <h5 class="fw-bold">Project HELIOS</h5>
+            <p class="text-muted small mb-0">Implemented evidence-based verification systems for fake news detection, significantly improving AI interpretability and transparent news verification processes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="project.html" class="btn btn-outline-dark px-4 py-2 rounded-pill fw-semibold">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community & Leadership -->
+  <section id="community" class="bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12" data-aos="fade-right">
+          <h2 class="section-title mb-4">Community Engagement</h2>
+          <p class="text-muted mb-4">Highly active in organizing global machine translation evaluation campaigns and promoting research in complex linguistic environments.</p>
+          
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <div class="bg-white p-4 rounded shadow-sm border-start border-4 border-primary h-100">
+                <h5 class="fw-bold"><i class="fas fa-globe-asia me-2 text-primary"></i> WMT IndicMT Shared Task</h5>
+                <p class="text-muted small ms-4 mb-2">Co-organizer (2023, 2024, 2025, 2026)</p>
+                <a href="https://www2.statmt.org/wmt26/indic-mt-task.html" target="_blank" class="ms-4 small fw-semibold" style="color: var(--highlight);">View WMT 26 Indic-MT Task <i class="fas fa-external-link-alt ms-1"></i></a>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="bg-white p-4 rounded shadow-sm border-start border-4 border-warning h-100">
+                <h5 class="fw-bold"><i class="fas fa-atom me-2 text-warning"></i> Quantum NLP Workshop</h5>
+                <p class="text-muted small ms-4 mb-2">Co-organizer (IJCNLP-AACL 2025, ICON 2026)</p>
+                <a href="http://qnlp.in/" target="_blank" class="ms-4 small fw-semibold" style="color: var(--highlight);">Visit QNLP Website <i class="fas fa-external-link-alt ms-1"></i></a>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="bg-white p-4 rounded shadow-sm border-start border-4 border-info h-100">
+                <h5 class="fw-bold"><i class="fas fa-language me-2 text-info"></i> WMT Similar Language Translation</h5>
+                <p class="text-muted small ms-4 mb-0">Organizer and lead contributor (2019, 2020, 2021) evaluating translation capabilities between closely related languages.</p>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="bg-white p-4 rounded shadow-sm border-start border-4 border-success h-100">
+                <h5 class="fw-bold"><i class="fas fa-check-circle me-2 text-success"></i> Academic Peer Review</h5>
+                <p class="text-muted small ms-4 mb-0">Regular reviewer for top-tier venues including ACL, EMNLP, TACL, NAACL, and TALLIP.</p>
+              </div>
+            </div>
+            
+            <!-- Quick Link to Contact for Students -->
+            <div class="col-12 mt-4 text-center">
+              <p class="text-muted small mb-3">Interested in collaborating with my research group at TUM?</p>
+              <a href="mailto:santanu.pal@tum.de" class="btn btn-custom-solid rounded-pill px-5 py-2 fw-semibold">Reach Out via Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Information -->
+  <section id="contact" class="pb-0">
+    <div class="container pb-5">
+      <div class="contact-info" data-aos="zoom-in">
+        <div class="row align-items-center text-center text-md-start">
+          <div class="col-md-8">
+            <h2 class="fw-bold text-white mb-3">Get In Touch</h2>
+            <p class="mb-1"><i class="fas fa-university me-2"></i> <strong>Technical University of Munich (TUM Campus Heilbronn)</strong></p>
+            <p class="mb-1 ms-4">Department of Statistics and Data Analytics</p>
+            <p class="mb-1 ms-4">Heilbronn, Baden-Württemberg, Germany</p>
+          </div>
+          <div class="col-md-4 mt-4 mt-md-0 text-md-end">
+            <a href="mailto:santanu.pal@tum.de" class="btn btn-light text-dark rounded-pill px-4 py-2 fw-bold mb-3 w-100"><i class="fas fa-envelope me-2"></i> Email Me</a>
+            <div class="d-flex justify-content-md-end justify-content-center">
+              <a href="https://www.linkedin.com/in/dr-santanu-pal-6511076a/" target="_blank" class="fs-4 me-3"><i class="fab fa-linkedin"></i></a>
+              <a href="https://scholar.google.com/citations?user=bYP2jIgAAAAJ&hl=en" target="_blank" class="fs-4 me-3"><i class="fas fa-graduation-cap"></i></a>
+              <a href="https://github.com/santanupal1980" target="_blank" class="fs-4"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p class="mb-0">&copy; 2026 Dr. Santanu Pal. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Typed JS for typing effect -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  
+  <script>
+    // Initialize AOS Animations
+    AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+    });
+
+    // Custom Scrollspy Tracker - Guaranteed to work regardless of animations changing heights
+    document.addEventListener("DOMContentLoaded", function() {
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          // Offset calculation to account for the fixed header
+          if (window.scrollY >= sectionTop - 120) {
+            current = section.getAttribute("id");
+          }
         });
-    </script>
+
+        // Apply active class to the correct navigation link
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+          }
+        });
+      });
+    });
+
+    // Initialize Typed.js
+    var options = {
+      strings: [
+        "Neural Machine Translation",
+        "Advancing Multilingual Models",
+        "Enhancing Cross-Lingual Understanding",
+        "Pioneering Zero-Shot Translation",
+        "Interlingual Representations",
+        "Specializing in Low-Resource IndicMT",
+        "Focusing on Pragmatics and Personalized MT",
+        "Architecting Agentic AI Workflows",
+        "Exploring State Space Models (S4/Mamba)"
+      ],
+      typeSpeed: 40,
+      backSpeed: 25,
+      backDelay: 2000,
+      loop: true
+    };
+    var typed = new Typed("#typed-text", options);
+  </script>
 </body>
 </html>

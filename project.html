@@ -1,478 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santanu Pal - Projects</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="custom.css" rel="stylesheet">
-    <style>
-        
-        
-        
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-            cursor: pointer;
-        }
-        
-        .dark-mode .project-card {
-            box-shadow: none;
-            border: 1px solid var(--border-color);
-        }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Projects | Dr. Santanu Pal</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #0f2027; --secondary: #203a43; --accent: #2c5364;
+      --highlight: #0077b5; --light-bg: #f8f9fa; --text-dark: #2b2b2b; --text-muted: #6c757d;
+      --card-bg: #ffffff;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); padding-top: 76px; background-color: var(--light-bg); }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; color: var(--primary); }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+    /* Navbar */
+    .navbar { padding: 15px 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--primary) !important; }
+    .nav-link { font-weight: 500; color: var(--secondary) !important; margin: 0 6px; transition: 0.3s; font-size: 0.95rem; position: relative; }
+    .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 50%; background-color: var(--highlight); transition: all 0.3s ease; transform: translateX(-50%); border-radius: 2px; }
+    .nav-link:hover::after, .nav-link.active::after { width: 85%; }
+    .nav-link:hover, .nav-link.active { color: var(--highlight) !important; font-weight: 700; }
 
-        .project-content {
-            padding: 1.5rem;
-        }
+    /* Page Header */
+    .page-header { padding: 80px 0 60px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); color: white; text-align: center; }
+    .page-header h1 { color: white; font-weight: 700; }
 
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .project-meta {
-            font-size: 0.875rem;
-            color: var(--secondary-text);
-            margin-bottom: 1rem;
-        }
+    /* Tabs */
+    .tab-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; border-bottom: 2px solid #e2e8f0; }
+    .tab { cursor: pointer; padding: 12px 24px; font-weight: 600; color: var(--secondary); border-bottom: 3px solid transparent; transition: 0.3s; margin-bottom: -2px; }
+    .tab.active { border-color: var(--highlight); color: var(--highlight); }
+    .tab:hover { color: var(--highlight); }
 
-        .project-meta strong {
-            color: var(--text-color);
-        }
-        
-        .project-image-container {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #e2e8f0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .dark-mode .project-image-container {
-            background-color: #4a5568;
-        }
-
-        .project-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .image-fallback {
-            padding: 1rem;
-            text-align: center;
-            font-weight: bold;
-            color: var(--text-color);
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-        }
-        
-        .modal-content {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            padding: 2rem;
-            border-radius: 0.5rem;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            color: var(--secondary-text);
-        }
-
-        .tab {
-            cursor: pointer;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-bottom: 3px solid transparent;
-            transition: border-color 0.2s, color 0.2s;
-        }
-        
-        .tab.active {
-            border-color: var(--link-color);
-            color: var(--link-color);
-        }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.85rem;
-            color: var(--secondary-text);
-            background-color: var(--footer-bg);
-            border-radius: 6px;
-            margin-top: 40px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            nav ul {
-                margin-top: 1rem;
-            }
-
-            .tab-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .tab {
-                text-align: center;
-                border-bottom: none;
-                border-left: 3px solid transparent;
-            }
-            
-            .tab.active {
-                border-bottom: none;
-                border-left: 3px solid var(--link-color);
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-100">
-    <div class="container">
-        <nav class="flex items-center justify-between py-6 px-4 bg-white rounded-lg shadow-md mb-8">
-            <div class="flex items-center space-x-4">
-                <a href="index.html">
-                    <img src="santanuPal.jpeg" alt="Santanu Pal" class="nav-profile-image">
-                </a>
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </button>
-            </div>
-            <ul class="flex space-x-6">
-                <li><a href="index.html#about" class="text-gray-600 hover:text-blue-700 font-medium">About</a></li>
-                <li><a href="publication.html" class="text-gray-600 hover:text-blue-700 font-medium">Publications</a></li>
-                <li><a href="skills.html" class="text-gray-600 hover:text-blue-700 font-medium">Skills</a></li>
-                <li><a href="project.html" class="text-blue-700 font-medium border-b-2 border-blue-700">Projects</a></li>
-                <li><a href="index.html#cv" class="text-gray-600 hover:text-blue-700 font-medium">CV</a></li>
-                <li><a href="index.html#news" class="text-gray-600 hover:text-blue-700 font-medium">News</a></li>
-                <li><a href="index.html#contact" class="text-gray-600 hover:text-blue-700 font-medium">Contact</a></li>
-            </ul>
-        </nav>
-
-        <section id="projects" class="mb-8">
-            <h2 class="text-3xl font-bold text-center mb-6">Key Projects</h2>
-
-            <div class="tab-container flex justify-center space-x-2 sm:space-x-4 mb-8 border-b border-gray-300">
-                <div class="tab active" data-tab="all">All Projects</div>
-                <div class="tab" data-tab="ai-ml">AI/ML Projects</div>
-                <div class="tab" data-tab="industry">Industry Projects</div>
-                <div class="tab" data-tab="academic">Academic Projects</div>
-            </div>
-
-            <div class="project-grid">
-
-                <div class="project-card project-type-ai-ml project-type-academic" data-project="ayushya">
-                    <div class="project-image-container">
-                        <img src="https://github.com/santanupal1980/AYUSHYA/blob/main/Ayushya.png?raw=true" alt="AYUSHYA" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">AYUSHYA</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">AYUSHYA Your Chronic Care Companion</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Jan 2025 - Present</p>
-                        <button onclick="showModal('ayushya-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <div class="project-card project-type-ai-ml project-type-industry" data-project="zenifypro">
-                    <div class="project-image-container">
-                        <img src="https://via.placeholder.com/600x400.png?text=ZenifyPro+Image" alt="ZenifyPro" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">ZenifyPro</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">ZenifyPro: Personalized Persuasion Engine for Health Care</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Jan 2024 - Present</p>
-                        <button onclick="showModal('zenifypro-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-                
-                <div class="project-card project-type-ai-ml project-type-industry" data-project="scope-api">
-                    <div class="project-image-container">
-                        <img src="https://via.placeholder.com/600x400.png?text=SCOPE-API+Image" alt="SCOPE-API" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">SCOPE-API</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">SCOPE-API: Skill Extraction from Job Description and CV</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Aug 2023 - Mar 2024</p>
-                        <button onclick="showModal('scope-api-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <div class="project-card project-type-ai-ml project-type-academic" data-project="lucifer">
-                    <div class="project-image-container">
-                        <img src="https://via.placeholder.com/600x400.png?text=LUCIFER+Image" alt="LUCIFER" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">LUCIFER</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">LUCIFER: Fake News Verification and Explanation Generation</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Aug 2022 - Jul 2023</p>
-                        <button onclick="showModal('lucifer-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <div class="project-card project-type-ai-ml project-type-academic" data-project="exclaim">
-                    <div class="project-image-container">
-                        <img src="https://via.placeholder.com/600x400.png?text=EXCLAIM+Image" alt="EXCLAIM" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">EXCLAIM</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">EXCLAIM: Meme role labelling and explanation generation</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Aug 2021 - Jul 2022</p>
-                        <button onclick="showModal('exclaim-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <div class="project-card project-type-industry project-type-academic" data-project="other-projects">
-                    <div class="project-image-container">
-                        <img src="https://via.placeholder.com/600x400.png?text=Other+Projects+Image" alt="Other Projects" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">Other Projects (Industry-Academia)</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Other Projects (Industry-Academia)</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Mar 2020 - Jul 2022</p>
-                        <button onclick="showModal('other-projects-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <div class="project-card project-type-academic" data-project="postdoc-projects">
-                    <div class="project-image-container">
-                        <img src="https://via.placeholder.com/600x400.png?text=Postdoc+Projects+Image" alt="Postdoc Projects" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-                        <div class="image-fallback hidden">Postdoc Projects</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Postdoc Projects</h3>
-                        <p class="project-meta"><strong>Duration:</strong> Feb 2017 - Feb 2020</p>
-                        <button onclick="showModal('postdoc-projects-modal')" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Details</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div id="ayushya-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('ayushya-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">AYUSHYA Your Chronic Care Companion</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> January 2025 - Present | <strong>Technologies:</strong> Python, PyTorch, LLM, Agentic AI</p>
-                <img src="https://github.com/santanupal1980/AYUSHYA/blob/main/Ayushya.png?raw=true" alt="AYUSHYA" class="w-full mb-4 rounded-lg">
-                <div class="text-gray-700">
-                    <p class="mb-2">See <a href="https://santanupal1980.github.io/AYUSHYA/" class="text-blue-600 hover:underline">[Details]</a></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="zenifypro-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('zenifypro-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">ZenifyPro: Personalized Persuasion Engine for Health Care</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> January 2024 - December 2024 | <strong>Technologies:</strong> Python, PyTorch, Reinforcement Learning</p>
-                <div class="text-gray-700">
-                    <ul class="list-disc ml-5 space-y-1">
-                        <li>Developing an end-to-end system for generating persuasive notifications for Sleeping Disorder patients.</li>
-                        <li>Utilized LLM, Langchain for notification generation.</li>
-                        <li>Used prompt engineering, in-context learning, chain-of-thought.</li>
-                        <li>Designed algorithms for on-board persuasion strategy adaptation.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div id="scope-api-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('scope-api-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">SCOPE-API: Skill Extraction from Job Description and CV</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> August 2023 - March 2024 | <strong>Technologies:</strong> Python, PyTorch, Flask, SpaCy, Hugging Face</p>
-                <div class="text-gray-700">
-                    <ul class="list-disc ml-5 space-y-1">
-                        <li>Built a Skill extraction API for a talent match engine.</li>
-                        <li>Implemented pre-trained transformer models using Hugging Face.</li>
-                        <li>The API is currently being deployed on an Azure-based cloud platform.</li>
-                    </ul>
-                    <p class="mt-4 font-italic text-gray-600"><strong>Achievements:</strong> The model outperforms GPT-4. It is used internally by the talent search team. A patent has been filed.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="lucifer-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('lucifer-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">LUCIFER: Fake News Verification and Explanation Generation</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> August 2022 - July 2023 | <strong>Technologies:</strong> Python, PyTorch, Hugging Face, Meta learning</p>
-                <div class="text-gray-700">
-                    <ul class="list-disc ml-5 space-y-1">
-                        <li>Built a domain-agnostic real-time fake news verification and explanation system.</li>
-                        <li>Implemented pre-trained transformer models using Hugging Face.</li>
-                        <li>Implemented meta-curriculum learning for generalization across domains and few-shot adaptation.</li>
-                        <li>The API is currently being deployed on an Azure-based cloud platform.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="exclaim-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('exclaim-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">EXCLAIM: Meme role labelling and explanation generation</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> August 2021 - July 2022 | <strong>Technologies:</strong> Python, PyTorch, OCR, Hugging Face, OpenCV</p>
-                <div class="text-gray-700">
-                    <ul class="list-disc ml-5 space-y-1">
-                        <li>Built a multimodal meme explanation system to detect and label Hero, Villain, and Victim roles in harmful memes.</li>
-                        <li>Generate explanations for the actions of each role within the meme.</li>
-                        <li>Implemented a pipeline process using OpenCV, OCR, natural language understanding, and caption generation from images, validated with OCR and pre-trained transformer models from Hugging Face for explanation generation.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="other-projects-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('other-projects-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">Other Projects (Industry-Academia collaboration)</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> March 2020 - July 2022 | <strong>Technologies:</strong> Python, PyTorch, Hugging Face</p>
-                <div class="text-gray-700">
-                    <ul class="list-disc ml-5 space-y-1">
-                        <li>Hate Speech detection, Normalization and Diffusion.</li>
-                        <li>Document level Machine Translation.</li>
-                        <li>Lecture Video translation.</li>
-                    </ul>
-                    <p class="mt-4 font-italic text-gray-600"><strong>Achievement:</strong> One A and three A-level research publications.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="postdoc-projects-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('postdoc-projects-modal')">&times;</span>
-                <h3 class="text-2xl font-bold mb-2">Postdoc Projects</h3>
-                <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> February 2017 - February 2020 | <strong>Technologies:</strong> Python, PyTorch, Transformers</p>
-                <div class="text-gray-700">
-                    <ul class="list-disc ml-5 space-y-1">
-                        <li>MMPE: Multi-modal and Language Technology Based Post-Editing Support for Machine Translation" sponsored by the German Research Foundation (DFG) (Saarland University, Germany).</li>
-                        <li>DEEPLE: Deep Learning for Language Technology End-to-End Applications (German Research Foundation for Artificial Intelligence (DFKI), SB, Germany).</li>
-                        <li>APE++: Neural Automatic Post-Editing (German Research Foundation for Artificial Intelligence (DFKI), SB, Germany).</li>
-                    </ul>
-                    <p class="mt-4 font-italic text-gray-600"><strong>Achievements:</strong> Four A* research publications for MMPE, and one A and two A-level research publications for DEEPLE.</p>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            &copy; 2024 Santanu Pal. All rights reserved.
-        </footer>
-    </div>
+    /* Project Cards */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+    .project-card { background-color: var(--card-bg); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; }
+    .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--highlight); }
+    .project-image-container { width: 100%; height: 220px; background-color: #e9ecef; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+    .project-image { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+    .image-fallback { font-weight: 700; color: var(--secondary); font-size: 1.2rem; }
+    .project-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+    .project-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+    .project-meta { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
     
-    <script>
-        function showModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'flex';
-            }
-        }
+    .btn-custom { background-color: var(--highlight); color: #fff; font-weight: 600; padding: 10px 20px; border-radius: 6px; border: none; width: 100%; transition: 0.3s; margin-top: auto; }
+    .btn-custom:hover { background-color: #005a8c; color: white; }
 
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        }
+    /* Modals */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1050; backdrop-filter: blur(4px); }
+    .custom-modal-content { background-color: #fff; padding: 40px; border-radius: 12px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+    .close-button { position: absolute; top: 20px; right: 25px; font-size: 2rem; line-height: 1; cursor: pointer; color: var(--text-muted); transition: 0.3s; }
+    .close-button:hover { color: var(--primary); }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Theme Toggling
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const storedTheme = localStorage.getItem('theme');
+    footer { background: #081115; color: #fff; padding: 25px 0; text-align: center; font-size: 0.9rem; margin-top: 60px; }
+  </style>
+</head>
+<body>
 
-            if (storedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html#home">Dr. Santanu Pal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html#about">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="publication.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="skills.html">Skills</a></li>
+          <li class="nav-item"><a class="nav-link active" href="project.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#news">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            themeToggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                }
-            });
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container" data-aos="fade-up">
+      <h1>Key Projects</h1>
+      <p class="lead text-light">Enterprise implementations and academic research frameworks.</p>
+    </div>
+  </div>
 
-            // Tab functionality
-            const tabs = document.querySelectorAll('.tab');
-            const projects = document.querySelectorAll('.project-card');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const type = tab.dataset.tab;
-                    
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
+  <section class="container my-5" data-aos="fade-up">
+    <!-- Tabs -->
+    <div class="tab-container">
+      <div class="tab active" data-tab="all">All Projects</div>
+      <div class="tab" data-tab="ai-ml">AI/ML Projects</div>
+      <div class="tab" data-tab="industry">Industry Projects</div>
+      <div class="tab" data-tab="academic">Academic Projects</div>
+    </div>
 
-                    projects.forEach(project => {
-                        if (type === 'all' || project.classList.contains('project-type-' + type)) {
-                            project.style.display = 'block';
-                        } else {
-                            project.style.display = 'none';
-                        }
-                    });
-                });
-            });
+    <!-- Grid -->
+    <div class="project-grid">
+      <!-- Project 1 -->
+      <div class="project-card project-type-ai-ml project-type-academic" data-project="ayushya">
+        <div class="project-image-container">
+          <img src="https://github.com/santanupal1980/AYUSHYA/blob/main/Ayushya.png?raw=true" alt="AYUSHYA" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">AYUSHYA</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">AYUSHYA Your Chronic Care Companion</h3>
+          <p class="project-meta"><strong>Duration:</strong> Jan 2025 - Present</p>
+          <button onclick="showModal('ayushya-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
 
-            // Close modals when clicking outside
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                modal.addEventListener('click', (event) => {
-                    if (event.target === modal) {
-                        modal.style.display = 'none';
+      <!-- Project 2 -->
+      <div class="project-card project-type-ai-ml project-type-industry" data-project="zenifypro">
+        <div class="project-image-container">
+          <img src="https://via.placeholder.com/600x400.png?text=ZenifyPro+Image" alt="ZenifyPro" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">ZenifyPro</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">ZenifyPro: Personalized Persuasion Engine for Health Care</h3>
+          <p class="project-meta"><strong>Duration:</strong> Jan 2024 - Present</p>
+          <button onclick="showModal('zenifypro-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
+      
+      <!-- Project 3 -->
+      <div class="project-card project-type-ai-ml project-type-industry" data-project="scope-api">
+        <div class="project-image-container">
+          <img src="https://via.placeholder.com/600x400.png?text=SCOPE-API+Image" alt="SCOPE-API" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">SCOPE-API</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">SCOPE-API: Skill Extraction from Job Description and CV</h3>
+          <p class="project-meta"><strong>Duration:</strong> Aug 2023 - Mar 2024</p>
+          <button onclick="showModal('scope-api-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card project-type-ai-ml project-type-academic" data-project="lucifer">
+        <div class="project-image-container">
+          <img src="https://via.placeholder.com/600x400.png?text=LUCIFER+Image" alt="LUCIFER" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">LUCIFER</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">LUCIFER: Fake News Verification and Explanation Generation</h3>
+          <p class="project-meta"><strong>Duration:</strong> Aug 2022 - Jul 2023</p>
+          <button onclick="showModal('lucifer-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card project-type-ai-ml project-type-academic" data-project="exclaim">
+        <div class="project-image-container">
+          <img src="https://via.placeholder.com/600x400.png?text=EXCLAIM+Image" alt="EXCLAIM" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">EXCLAIM</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">EXCLAIM: Meme role labelling and explanation generation</h3>
+          <p class="project-meta"><strong>Duration:</strong> Aug 2021 - Jul 2022</p>
+          <button onclick="showModal('exclaim-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card project-type-industry project-type-academic" data-project="other-projects">
+        <div class="project-image-container">
+          <img src="https://via.placeholder.com/600x400.png?text=Other+Projects+Image" alt="Other Projects" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">Other Projects</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Other Projects (Industry-Academia)</h3>
+          <p class="project-meta"><strong>Duration:</strong> Mar 2020 - Jul 2022</p>
+          <button onclick="showModal('other-projects-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
+
+      <!-- Project 7 -->
+      <div class="project-card project-type-academic" data-project="postdoc-projects">
+        <div class="project-image-container">
+          <img src="https://via.placeholder.com/600x400.png?text=Postdoc+Projects+Image" alt="Postdoc Projects" class="project-image" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="image-fallback" style="display:none;">Postdoc Projects</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Postdoc Projects</h3>
+          <p class="project-meta"><strong>Duration:</strong> Feb 2017 - Feb 2020</p>
+          <button onclick="showModal('postdoc-projects-modal')" class="btn-custom">View Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="ayushya-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('ayushya-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">AYUSHYA Your Chronic Care Companion</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> January 2025 - Present | <strong>Technologies:</strong> Python, PyTorch, LLM, Agentic AI</p>
+      <img src="https://github.com/santanupal1980/AYUSHYA/blob/main/Ayushya.png?raw=true" alt="AYUSHYA" class="img-fluid rounded mb-4 border">
+      <p>See <a href="https://santanupal1980.github.io/AYUSHYA/" target="_blank" style="color: var(--highlight); font-weight: 600;">[Details]</a></p>
+    </div>
+  </div>
+
+  <div id="zenifypro-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('zenifypro-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">ZenifyPro: Personalized Persuasion Engine for Health Care</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> January 2024 - December 2024 | <strong>Technologies:</strong> Python, PyTorch, Reinforcement Learning</p>
+      <ul class="mb-0" style="color: var(--text-dark);">
+        <li class="mb-2">Developing an end-to-end system for generating persuasive notifications for Sleeping Disorder patients.</li>
+        <li class="mb-2">Utilized LLM, Langchain for notification generation.</li>
+        <li class="mb-2">Used prompt engineering, in-context learning, chain-of-thought.</li>
+        <li>Designed algorithms for on-board persuasion strategy adaptation.</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="scope-api-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('scope-api-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">SCOPE-API: Skill Extraction from Job Description and CV</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> August 2023 - March 2024 | <strong>Technologies:</strong> Python, PyTorch, Flask, SpaCy, Hugging Face</p>
+      <ul class="mb-4" style="color: var(--text-dark);">
+        <li class="mb-2">Built a Skill extraction API for a talent match engine.</li>
+        <li class="mb-2">Implemented pre-trained transformer models using Hugging Face.</li>
+        <li>The API is currently being deployed on an Azure-based cloud platform.</li>
+      </ul>
+      <p class="fst-italic text-muted"><strong>Achievements:</strong> The model outperforms GPT-4. It is used internally by the talent search team. A patent has been filed.</p>
+    </div>
+  </div>
+
+  <div id="lucifer-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('lucifer-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">LUCIFER: Fake News Verification and Explanation Generation</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> August 2022 - July 2023 | <strong>Technologies:</strong> Python, PyTorch, Hugging Face, Meta learning</p>
+      <ul class="mb-0" style="color: var(--text-dark);">
+        <li class="mb-2">Built a domain-agnostic real-time fake news verification and explanation system.</li>
+        <li class="mb-2">Implemented pre-trained transformer models using Hugging Face.</li>
+        <li class="mb-2">Implemented meta-curriculum learning for generalization across domains and few-shot adaptation.</li>
+        <li>The API is currently being deployed on an Azure-based cloud platform.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="exclaim-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('exclaim-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">EXCLAIM: Meme role labelling and explanation generation</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> August 2021 - July 2022 | <strong>Technologies:</strong> Python, PyTorch, OCR, Hugging Face, OpenCV</p>
+      <ul class="mb-0" style="color: var(--text-dark);">
+        <li class="mb-2">Built a multimodal meme explanation system to detect and label Hero, Villain, and Victim roles in harmful memes.</li>
+        <li class="mb-2">Generate explanations for the actions of each role within the meme.</li>
+        <li>Implemented a pipeline process using OpenCV, OCR, natural language understanding, and caption generation from images, validated with OCR and pre-trained transformer models from Hugging Face for explanation generation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="other-projects-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('other-projects-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">Other Projects (Industry-Academia collaboration)</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> March 2020 - July 2022 | <strong>Technologies:</strong> Python, PyTorch, Hugging Face</p>
+      <ul class="mb-4" style="color: var(--text-dark);">
+        <li class="mb-2">Hate Speech detection, Normalization and Diffusion.</li>
+        <li class="mb-2">Document level Machine Translation.</li>
+        <li>Lecture Video translation.</li>
+      </ul>
+      <p class="fst-italic text-muted"><strong>Achievement:</strong> One A and three A-level research publications.</p>
+    </div>
+  </div>
+
+  <div id="postdoc-projects-modal" class="modal-overlay">
+    <div class="custom-modal-content">
+      <span class="close-button" onclick="closeModal('postdoc-projects-modal')">&times;</span>
+      <h3 class="fw-bold mb-2" style="color: var(--primary);">Postdoc Projects</h3>
+      <p class="text-muted small mb-4"><strong>Duration:</strong> February 2017 - February 2020 | <strong>Technologies:</strong> Python, PyTorch, Transformers</p>
+      <ul class="mb-4" style="color: var(--text-dark);">
+        <li class="mb-2">MMPE: Multi-modal and Language Technology Based Post-Editing Support for Machine Translation" sponsored by the German Research Foundation (DFG) (Saarland University, Germany).</li>
+        <li class="mb-2">DEEPLE: Deep Learning for Language Technology End-to-End Applications (German Research Foundation for Artificial Intelligence (DFKI), SB, Germany).</li>
+        <li>APE++: Neural Automatic Post-Editing (German Research Foundation for Artificial Intelligence (DFKI), SB, Germany).</li>
+      </ul>
+      <p class="fst-italic text-muted"><strong>Achievements:</strong> Four A* research publications for MMPE, and one A and two A-level research publications for DEEPLE.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container"><p class="mb-0">&copy; 2026 Dr. Santanu Pal. All rights reserved.</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, offset: 50, duration: 800 });
+
+    // Modals
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) { modal.style.display = 'flex'; }
+    }
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) { modal.style.display = 'none'; }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab filtering logic
+        const tabs = document.querySelectorAll('.tab');
+        const projects = document.querySelectorAll('.project-card');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const type = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                projects.forEach(project => {
+                    if (type === 'all' || project.classList.contains('project-type-' + type)) {
+                        project.style.display = 'flex'; // matches the flex layout of the card
+                    } else {
+                        project.style.display = 'none';
                     }
                 });
             });
         });
-    </script>
+
+        // Close modals when clicking outside
+        const overlays = document.querySelectorAll('.modal-overlay');
+        overlays.forEach(overlay => {
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    overlay.style.display = 'none';
+                }
+            });
+        });
+    });
+  </script>
 </body>
 </html>
